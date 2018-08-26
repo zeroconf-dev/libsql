@@ -1,5 +1,5 @@
 import { TemplateInput } from './TemplateInput';
-import { Client } from './Client';
+import { Client } from './Runtime/Client';
 import { QueryResult } from './QueryResult';
 import { ExecuteResult } from './ExecuteResult';
 import { ColumnSelect } from './ColumnSelect';
@@ -10,7 +10,7 @@ import { AdapterParamInput } from './AdapterParamInput';
 import { ColumnInputNames } from './ColumnInputNames';
 import { ForeignColumnInputNames } from './ForeignColumnInputNames';
 import { RawInterpolationString } from './RawInterpolationString';
-import { SqlPartString } from './SQLPartString';
+import { SqlPartString } from './SqlPartString';
 import { ColumnChanged } from './ColumnChanged';
 import { ColumnUpdate } from './ColumnUpdate';
 import { ForeignColumnChanged } from './ForeignColumnChanged';

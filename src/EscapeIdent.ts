@@ -1,4 +1,4 @@
-import { forceEscapeIdent } from './forceEscapeIdent';
+import { forceEscapeIdent } from './ForceEscapeIdent';
 import escape from 'pg-escape';
 
 export function escapeIdent(ident: string): string {

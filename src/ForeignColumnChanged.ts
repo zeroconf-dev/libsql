@@ -1,5 +1,5 @@
 import { ColumnMap } from './ColumnMap';
-import { isReadOnly } from './isReadOnly';
+import { isReadOnly } from './IsReadOnly';
 import { mapInputValue } from './MapInputValue';
 import { prefixParamName } from './PrefixParamName';
 import { getColumnInputExpr } from './GetColumnInputExpr';

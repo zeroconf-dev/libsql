@@ -1,6 +1,5 @@
 import { ColumnMap } from './ColumnMap';
-import { isReadOnly } from './isReadOnly';
-import { isForeignTable } from './isForeignTable';
+import { isReadOnly } from './IsReadOnly';
 import { escapeIdent } from './EscapeIdent';
 import { getColumnName } from './GetColumnName';
 import { mapInputValue } from './MapInputValue';

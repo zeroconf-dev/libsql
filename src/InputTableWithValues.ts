@@ -1,6 +1,6 @@
 import { TableTypeSpec } from './TableTypeSpec';
 import { escapeIdent } from './EscapeIdent';
-import { Client } from './Client';
+import { Client } from './Runtime/Client';
 import { InsertionGroup } from './InsertionGroup';
 import { TableType } from './TableType';
 import { InputTable } from './InputTable';

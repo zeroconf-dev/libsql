@@ -12,7 +12,7 @@ export interface QueryArrayResult extends QueryResultBase {
 }
 
 export interface Client<T> {
-    readonly transactionIsolationLevel: number;
+    readonly transactionNestingLevel: number;
     beginTransaction(): Promise<void>;
     close(): void;
     closeAsync(): Promise<void>;

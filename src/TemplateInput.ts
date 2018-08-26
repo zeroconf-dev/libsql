@@ -2,7 +2,7 @@ import { RawInterpolationString } from './RawInterpolationString';
 import { ParamInput } from './ParamInput';
 import { ColumnSelect } from './ColumnSelect';
 import { ForeignColumnSelect } from './ForeignColumnSelect';
-import { SqlPartString } from './SQLPartString';
+import { SqlPartString } from './SqlPartString';
 import { InputTableWithValues } from './InputTableWithValues';
 import { ColumnInputNames } from './ColumnInputNames';
 import { AdapterParamInput } from './AdapterParamInput';
