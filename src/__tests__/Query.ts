@@ -27,7 +27,6 @@ describe('Query', () => {
             name: string;
         }
 
-        // tslint:disable-next-line:variable-name
         const UserModelBase = baseModelGenerator<UserData>('User', userColumnMap);
         class UserModel extends UserModelBase {
             public email: string;
