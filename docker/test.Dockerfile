@@ -10,6 +10,6 @@ WORKDIR /service/
 RUN apk add --no-cache git libpq
 
 COPY --from=builder /service/node_modules /service/node_modules
-COPY package.json /service/
+COPY package.json .prettierrc.js /service/
 
 ENTRYPOINT [ "npm", "test" ]

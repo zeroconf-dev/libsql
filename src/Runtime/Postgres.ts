@@ -5,6 +5,8 @@ import { Client, QueryResult } from './Client';
 import { Escaper } from './Escaper';
 import { Platform } from './Platform';
 
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
 const BEGIN_TRANSACTION_QUERY = 'BEGIN';
 const COMMIT_TRANSACTION_QUERY = 'COMMIT';
 const ROLLBACK_TRANSACTION_QUERY = 'ROLLBACK';
@@ -89,14 +91,15 @@ export class PostgresClient implements Client<pg.PoolClient> {
 export class PostgresPool {
     private activeConnections: Set<PostgresClient>;
     private pool: pg.Pool;
-    public constructor(applicationName: string, maxConnections?: number) {
+    public constructor(
+        applicationName: string,
+        config: Omit<pg.PoolConfig, 'application_name' | 'max'>,
+        maxConnections?: number,
+    ) {
         const pgConfig: pg.PoolConfig = {
+            ...config,
             application_name: applicationName,
-            database: 'test',
-            host: 'postgres',
             max: maxConnections,
-            password: 'test',
-            user: 'test',
         };
         this.pool = new pg.Pool(pgConfig);
         this.activeConnections = new Set();
@@ -139,7 +142,7 @@ function forceEscapeIdentifier(ident: string): string {
     return res;
 }
 
-class PostgresEscaper implements Escaper {
+export class PostgresEscaper implements Escaper {
     public identifier(ident: string): string {
         if (/[A-Z]/.test(ident)) {
             return forceEscapeIdentifier(ident);
