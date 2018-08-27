@@ -1,14 +1,15 @@
-FROM node:10.9.0-alpine
+FROM node:10.9.0-alpine as builder
 WORKDIR /service/
+RUN apk add --no-cache findutils gcc g++ libpq make postgresql-dev python
 
 COPY package.json package-lock.json /service/
 RUN npm install
 
-RUN apk add --no-cache git
+FROM node:10.9.0-alpine
+WORKDIR /service/
+RUN apk add --no-cache git libpq
 
-# COPY tsconfig.json /service/
-# COPY src /service/src
-# RUN npm run build
-# COPY jest.config.js /service/
+COPY --from=builder /service/node_modules /service/node_modules
+COPY package.json /service/
 
 ENTRYPOINT [ "npm", "test" ]

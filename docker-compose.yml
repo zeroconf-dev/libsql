@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: ./docker/build.Dockerfile
     volumes:
-      - ./lib:/service/lib:rw
-      - ./types:/service/types:rw
+      - ./lib:/service/lib:consistent
+      - ./types:/service/types:consistent
   postgres:
     build:
       context: .
