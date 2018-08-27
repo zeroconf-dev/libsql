@@ -17,3 +17,8 @@ services:
     - postgres
     links:
     - postgres
+    volumes:
+      - ./.git:/service/.git:cached
+      - ./tsconfig.json:/service/tsconfig.json:cached
+      - ./jest.config.js:/service/jest.config.js:cached
+      - ./src:/service/src:cached

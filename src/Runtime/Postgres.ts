@@ -1,6 +1,9 @@
 import * as pg from 'pg';
 import { Client, QueryResult } from './Client';
 import { SqlQueryError } from '../SqlQueryError';
+import { Platform } from './Platform';
+import { Escaper } from '../Escaper';
+import escape from 'pg-escape';
 
 const BEGIN_TRANSACTION_QUERY = 'BEGIN';
 const COMMIT_TRANSACTION_QUERY = 'COMMIT';
@@ -125,5 +128,28 @@ export class PostgresPool {
 
     public getActiveCount() {
         return this.activeConnections.size;
+    }
+}
+
+function forceEscapeIdentifier(ident: string): string {
+    const res = escape.ident(ident);
+    if (ident.indexOf('"') === -1) {
+        return `"${ident}"`;
+    }
+    return res;
+}
+
+class PostgresEscaper implements Escaper {
+    public identifier(ident: string): string {
+        if (/[A-Z]/.test(ident)) {
+            return forceEscapeIdentifier(ident);
+        }
+        return escape.ident(ident);
+    }
+}
+
+export class PostgresPlatform extends Platform<PostgresClient> {
+    public constructor(client: PostgresClient, escaper: PostgresEscaper) {
+        super(client, escaper);
     }
 }

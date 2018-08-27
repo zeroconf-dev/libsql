@@ -1,4 +1,4 @@
-import { PostgresPool } from '../PostgresClient';
+import { PostgresPool } from '../Postgres';
 
 describe('PostgresClient', () => {
     let pool: PostgresPool;
@@ -9,6 +9,7 @@ describe('PostgresClient', () => {
     beforeAll(() => {
         pool = new PostgresPool('test');
     });
+
     test('Connect successfully', () => {
         return expect(pool.connect()).resolves.toBeTruthy();
     });

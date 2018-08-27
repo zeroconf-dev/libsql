@@ -1,0 +1,4 @@
+{
+    "jest.runAllTestsFirst": false,
+    "jest.pathToJest": "docker-compose run test --"
+}
