@@ -19,6 +19,6 @@ export interface Client<T> {
     commit(): Promise<void>;
     getTransactionUniqueNumber(): number;
     getUnderlyingClient(): T;
-    query<T = any>(sql: string, parameters?: any[], name?: string): Promise<QueryResult>;
+    query(sql: string, parameters?: any[], name?: string): Promise<QueryResult>;
     rollback(): Promise<void>;
 }
