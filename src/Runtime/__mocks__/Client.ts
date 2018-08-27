@@ -1,6 +1,7 @@
 import { Client, QueryResult } from '../Client';
 
 export class MockClient implements Client<any> {
+    private result: QueryResult | null = null;
     public readonly transactionNestingLevel: number = 0;
     public beginTransaction(): Promise<void> {
         return Promise.resolve();
@@ -20,10 +21,6 @@ export class MockClient implements Client<any> {
     public getUnderlyingClient() {
         return null;
     }
-    private result: QueryResult | null = null;
-    public setResult(result: QueryResult | null) {
-        this.result = result;
-    }
     public query(_sql: string, _parameters?: any[] | undefined, _name?: string | undefined): Promise<QueryResult> {
         if (this.result == null) {
             throw new Error('QueryResult is not set');
@@ -32,5 +29,8 @@ export class MockClient implements Client<any> {
     }
     public rollback(): Promise<void> {
         return Promise.resolve();
+    }
+    public setResult(result: QueryResult | null) {
+        this.result = result;
     }
 }

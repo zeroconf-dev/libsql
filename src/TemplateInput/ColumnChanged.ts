@@ -1,11 +1,11 @@
 import { ColumnMap } from '../ColumnMapper/ColumnMap';
-import { isReadOnly } from '../Util/IsReadOnly';
-import { isForeignTable } from '../Util/IsForeignTable';
-import { mapInputValue } from '../Util/MapInputValue';
-import { prefixParamName } from '../Util/PrefixParamName';
-import { getColumnInputExpr } from '../Util/GetColumnInputExpr';
-import { mapOutputColumnSqlExpr } from '../Util/MapOutputColumnSqlExpr';
 import { Escaper } from '../Runtime/Escaper';
+import { getColumnInputExpr } from '../Util/GetColumnInputExpr';
+import { isForeignTable } from '../Util/IsForeignTable';
+import { isReadOnly } from '../Util/IsReadOnly';
+import { mapInputValue } from '../Util/MapInputValue';
+import { mapOutputColumnSqlExpr } from '../Util/MapOutputColumnSqlExpr';
+import { prefixParamName } from '../Util/PrefixParamName';
 
 export class ColumnChanged {
     public constructor(

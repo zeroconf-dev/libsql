@@ -1,7 +1,7 @@
-import { Client } from '../Runtime/Client';
-import { InputTable } from './InputTable';
-import { Escaper } from '../Runtime/Escaper';
 import { AdapterBase } from '../Adapter/AdapterBase';
+import { Client } from '../Runtime/Client';
+import { Escaper } from '../Runtime/Escaper';
+import { InputTable } from './InputTable';
 
 export type InsertionGroup = 1 | 2 | 4 | 8 | 16 | 32 | 64 | 128;
 

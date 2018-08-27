@@ -1,22 +1,22 @@
-import { TemplateInput } from './TemplateInput';
-import { Client } from './Runtime/Client';
-import { ColumnSelect } from './TemplateInput/ColumnSelect';
-import { ForeignColumnSelect } from './TemplateInput/ForeignColumnSelect';
-import { ParamInput } from './TemplateInput/ParamInput';
-import { InputTableWithValues } from './TemplateInput/InputTableWithValues';
-import { AdapterParamInput } from './TemplateInput/AdapterParamInput';
-import { ColumnInputNames } from './TemplateInput/ColumnInputNames';
-import { ForeignColumnInputNames } from './TemplateInput/ForeignColumnInputNames';
-import { RawInterpolationString } from './TemplateInput/RawInterpolationString';
-import { SqlPartString } from './TemplateInput/SqlPartString';
-import { ColumnChanged } from './TemplateInput/ColumnChanged';
-import { ColumnUpdate } from './TemplateInput/ColumnUpdate';
-import { ForeignColumnChanged } from './TemplateInput/ForeignColumnChanged';
-import { ForeignColumnUpdate } from './TemplateInput/ForeignColumnUpdate';
 import { AffectedRowsMismatchError } from './Error/AffectedRowsMismatchError';
 import { NonUniqueResultError } from './Error/NonUniqueResultError';
 import { NoResultsFoundError } from './Error/NoResultsFoundError';
+import { Client } from './Runtime/Client';
 import { Platform } from './Runtime/Platform';
+import { TemplateInput } from './TemplateInput';
+import { AdapterParamInput } from './TemplateInput/AdapterParamInput';
+import { ColumnChanged } from './TemplateInput/ColumnChanged';
+import { ColumnInputNames } from './TemplateInput/ColumnInputNames';
+import { ColumnSelect } from './TemplateInput/ColumnSelect';
+import { ColumnUpdate } from './TemplateInput/ColumnUpdate';
+import { ForeignColumnChanged } from './TemplateInput/ForeignColumnChanged';
+import { ForeignColumnInputNames } from './TemplateInput/ForeignColumnInputNames';
+import { ForeignColumnSelect } from './TemplateInput/ForeignColumnSelect';
+import { ForeignColumnUpdate } from './TemplateInput/ForeignColumnUpdate';
+import { InputTableWithValues } from './TemplateInput/InputTableWithValues';
+import { ParamInput } from './TemplateInput/ParamInput';
+import { RawInterpolationString } from './TemplateInput/RawInterpolationString';
+import { SqlPartString } from './TemplateInput/SqlPartString';
 import { assertNever } from './Util/AssertNever';
 
 export interface ExecuteResult<T> {
@@ -31,126 +31,6 @@ export interface QueryResult<T> {
 }
 
 export class Template<T> {
-    public constructor(private readonly queryParts: TemplateStringsArray, private readonly input: TemplateInput<T>[]) {}
-    public async execute<TClient extends Client<TDB>, TDB = any>(
-        platform: Platform<TClient, TDB>,
-    ): Promise<QueryResult<T>> {
-        const res = await this.executeImpl(platform);
-        return res.result;
-    }
-
-    public async executeUpdate<TClient extends Client<TDB>, TDB = any>(
-        platform: Platform<TClient, TDB>,
-        expectedNumberOfRows?: number,
-    ): Promise<void> {
-        const res = await this.executeImpl(platform);
-        if (expectedNumberOfRows != null && res.result.affectedRows !== expectedNumberOfRows) {
-            throw new AffectedRowsMismatchError(res.sql, res.params, expectedNumberOfRows, res.result.affectedRows);
-        }
-    }
-
-    public async oneOrNullResult<TClient extends Client<TDB>, TDB = any>(
-        platform: Platform<TClient, TDB>,
-    ): Promise<T | null> {
-        const res = await this.executeImpl(platform);
-        if (res.result.rows.length === 0) {
-            return null;
-        }
-
-        if (res.result.rows.length > 1) {
-            throw new NonUniqueResultError(res.sql, res.params, res.result.rows.length);
-        }
-
-        return res.result.rows[0];
-    }
-
-    public async singleResult<TClient extends Client<TDB>, TDB = any>(platform: Platform<TClient, TDB>): Promise<T> {
-        const res = await this.executeImpl(platform);
-
-        if (res.result.rows.length === 0) {
-            throw new NoResultsFoundError(res.sql, res.params);
-        }
-
-        if (res.result.rows.length > 1) {
-            throw new NonUniqueResultError(res.sql, res.params, res.result.rows.length);
-        }
-
-        return res.result.rows[0];
-    }
-
-    public getSql<TClient extends Client<TDB>, TDB = any>(platform: Platform<TClient, TDB>): string {
-        return Template.mapInput(this.queryParts, this.input, platform).sql;
-    }
-
-    private async executeImpl<TClient extends Client<TDB>, TDB = any>(
-        platform: Platform<TClient, TDB>,
-    ): Promise<ExecuteResult<T>> {
-        const mapped = Template.mapInput(this.queryParts, this.input, platform);
-        const sql = mapped.sql;
-        const params = mapped.parameters;
-        const columnSelects = mapped.columnSelects;
-
-        const tableRes = Promise.all(mapped.tables.map(t => t.createTable(platform.client)));
-        const queryResPromise = platform.client.query(sql, params);
-
-        await Promise.all([tableRes, queryResPromise]);
-
-        const queryRes = await queryResPromise;
-
-        const affected = queryRes.rowCount;
-        const rows = queryRes.rows.map<T>(e => {
-            const mappedRow = new Set();
-            columnSelects.forEach(cs => cs.transformOutput(e, mappedRow));
-            return e;
-        });
-
-        return {
-            params: params,
-            result: {
-                affectedRows: affected,
-                rows: rows,
-            },
-            sql: sql,
-        };
-    }
-
-    private static mapInput<T, TClient extends Client<TDB>, TDB = any>(
-        queryParts: TemplateStringsArray,
-        input: TemplateInput<T>[],
-        platform: Platform<TClient>,
-    ) {
-        const paramValueMap = new Map<string, string>();
-        const params: any[] = [];
-
-        const columnSelects: (ColumnSelect<T> | ForeignColumnSelect<T>)[] = [];
-
-        let paramIdx = 1;
-
-        const addParam = (name: string, value: any) => {
-            const paramName = paramValueMap.get(name);
-            if (paramName != null) {
-                return paramName;
-            }
-
-            const result = `\$${paramIdx++}`;
-            paramValueMap.set(name, result);
-            params.push(value);
-            return result;
-        };
-
-        const res: string[] = [];
-
-        const tables: Set<InputTableWithValues<any>> = new Set();
-        Template.addSqlValues(res, addParam, columnSelects, queryParts, input, platform, tables);
-
-        return {
-            columnSelects: columnSelects,
-            parameters: params,
-            sql: res.join(''),
-            tables: Array.from(tables.values()),
-        };
-    }
-
     private static addSqlValues<T, TClient extends Client<TDB>, TDB = any>(
         sqlRes: string[],
         addParam: (name: string, value: any) => string,
@@ -217,5 +97,124 @@ export class Template<T> {
                 }
             }
         }
+    }
+
+    private static mapInput<T, TClient extends Client<TDB>, TDB = any>(
+        queryParts: TemplateStringsArray,
+        input: TemplateInput<T>[],
+        platform: Platform<TClient>,
+    ) {
+        const paramValueMap = new Map<string, string>();
+        const params: any[] = [];
+
+        const columnSelects: (ColumnSelect<T> | ForeignColumnSelect<T>)[] = [];
+
+        let paramIdx = 1;
+
+        const addParam = (name: string, value: any) => {
+            const paramName = paramValueMap.get(name);
+            if (paramName != null) {
+                return paramName;
+            }
+
+            const result = `\$${paramIdx++}`;
+            paramValueMap.set(name, result);
+            params.push(value);
+            return result;
+        };
+
+        const res: string[] = [];
+
+        const tables: Set<InputTableWithValues<any>> = new Set();
+        Template.addSqlValues(res, addParam, columnSelects, queryParts, input, platform, tables);
+
+        return {
+            columnSelects: columnSelects,
+            parameters: params,
+            sql: res.join(''),
+            tables: Array.from(tables.values()),
+        };
+    }
+    public constructor(private readonly queryParts: TemplateStringsArray, private readonly input: TemplateInput<T>[]) {}
+
+    private async executeImpl<TClient extends Client<TDB>, TDB = any>(
+        platform: Platform<TClient, TDB>,
+    ): Promise<ExecuteResult<T>> {
+        const mapped = Template.mapInput(this.queryParts, this.input, platform);
+        const sql = mapped.sql;
+        const params = mapped.parameters;
+        const columnSelects = mapped.columnSelects;
+
+        const tableRes = Promise.all(mapped.tables.map(t => t.createTable(platform.client)));
+        const queryResPromise = platform.client.query(sql, params);
+
+        await Promise.all([tableRes, queryResPromise]);
+
+        const queryRes = await queryResPromise;
+
+        const affected = queryRes.rowCount;
+        const rows = queryRes.rows.map<T>(e => {
+            const mappedRow = new Set();
+            columnSelects.forEach(cs => cs.transformOutput(e, mappedRow));
+            return e;
+        });
+
+        return {
+            params: params,
+            result: {
+                affectedRows: affected,
+                rows: rows,
+            },
+            sql: sql,
+        };
+    }
+    public async execute<TClient extends Client<TDB>, TDB = any>(
+        platform: Platform<TClient, TDB>,
+    ): Promise<QueryResult<T>> {
+        const res = await this.executeImpl(platform);
+        return res.result;
+    }
+
+    public async executeUpdate<TClient extends Client<TDB>, TDB = any>(
+        platform: Platform<TClient, TDB>,
+        expectedNumberOfRows?: number,
+    ): Promise<void> {
+        const res = await this.executeImpl(platform);
+        if (expectedNumberOfRows != null && res.result.affectedRows !== expectedNumberOfRows) {
+            throw new AffectedRowsMismatchError(res.sql, res.params, expectedNumberOfRows, res.result.affectedRows);
+        }
+    }
+
+    public getSql<TClient extends Client<TDB>, TDB = any>(platform: Platform<TClient, TDB>): string {
+        return Template.mapInput(this.queryParts, this.input, platform).sql;
+    }
+
+    public async oneOrNullResult<TClient extends Client<TDB>, TDB = any>(
+        platform: Platform<TClient, TDB>,
+    ): Promise<T | null> {
+        const res = await this.executeImpl(platform);
+        if (res.result.rows.length === 0) {
+            return null;
+        }
+
+        if (res.result.rows.length > 1) {
+            throw new NonUniqueResultError(res.sql, res.params, res.result.rows.length);
+        }
+
+        return res.result.rows[0];
+    }
+
+    public async singleResult<TClient extends Client<TDB>, TDB = any>(platform: Platform<TClient, TDB>): Promise<T> {
+        const res = await this.executeImpl(platform);
+
+        if (res.result.rows.length === 0) {
+            throw new NoResultsFoundError(res.sql, res.params);
+        }
+
+        if (res.result.rows.length > 1) {
+            throw new NonUniqueResultError(res.sql, res.params, res.result.rows.length);
+        }
+
+        return res.result.rows[0];
     }
 }

@@ -1,6 +1,4 @@
-export interface OutputColumnMapperFn {
-    (prefix: string): string;
-}
+export type OutputColumnMapperFn = (prefix: string) => string;
 
 export interface OutputColumnMapperComplex {
     mapValue: (value: any) => any;

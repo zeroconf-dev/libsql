@@ -1,10 +1,10 @@
 import { ColumnMap } from '../ColumnMapper/ColumnMap';
 import { baseModelGenerator } from '../Model';
 import { Query as sql } from '../Query';
-import { param } from '../Select/Param';
 import { MockClient } from '../Runtime/__mocks__/Client';
-import { MockPlatform } from '../Runtime/__mocks__/Platform';
 import { mockEscaper } from '../Runtime/__mocks__/Escaper';
+import { MockPlatform } from '../Runtime/__mocks__/Platform';
+import { param } from '../Select/Param';
 
 const client = new MockClient();
 const platform = new MockPlatform(client, mockEscaper);
@@ -16,22 +16,23 @@ describe('Query', () => {
 
     test('Simple model select', async () => {
         const userColumnMap: ColumnMap = {
+            email: 'email',
             id: 'id',
             name: 'name',
-            email: 'email',
         };
 
         interface UserData {
+            email: string;
             id: number;
             name: string;
-            email: string;
         }
 
+        // tslint:disable-next-line:variable-name
         const UserModelBase = baseModelGenerator<UserData>('User', userColumnMap);
         class UserModel extends UserModelBase {
+            public email: string;
             public id: number;
             public name: string;
-            public email: string;
 
             public constructor(data: UserData) {
                 super();
@@ -58,9 +59,9 @@ describe('Query', () => {
             rowCount: 1,
             rows: [
                 {
+                    email: 'test@example.com',
                     id: 1,
                     name: 'Test person',
-                    email: 'test@example.com',
                 },
             ],
         });

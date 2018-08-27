@@ -1,11 +1,11 @@
 import { ColumnMap } from '../ColumnMapper/ColumnMap';
-import { isReadOnly } from '../Util/IsReadOnly';
+import { Escaper } from '../Runtime/Escaper';
+import { getColumnInputExpr } from '../Util/GetColumnInputExpr';
 import { getColumnName } from '../Util/GetColumnName';
+import { getForeignTableName } from '../Util/GetForeignTableName';
+import { isReadOnly } from '../Util/IsReadOnly';
 import { mapInputValue } from '../Util/MapInputValue';
 import { prefixParamName } from '../Util/PrefixParamName';
-import { getColumnInputExpr } from '../Util/GetColumnInputExpr';
-import { getForeignTableName } from '../Util/GetForeignTableName';
-import { Escaper } from '../Runtime/Escaper';
 
 export class ForeignColumnUpdate {
     public constructor(

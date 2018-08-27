@@ -1,14 +1,14 @@
-import { InputTableWithValues, InsertionGroup, TableTypeSpec, TableType } from './InputTableWithValues';
-import { toSqlValue } from '../Util/ToSqlValue';
 import { Escaper } from '../Runtime/Escaper';
+import { toSqlValue } from '../Util/ToSqlValue';
+import { InputTableWithValues, InsertionGroup, TableType, TableTypeSpec } from './InputTableWithValues';
 
 export type KeyMappings<TSpec extends TableTypeSpec> = Partial<{ [key in keyof TableType<TSpec>]: string }>;
 
 export class InputTable<TSpec extends TableTypeSpec> {
-    public readonly commaSeparatedColumnNames: string;
-    public readonly columns: string;
-    public readonly inputParams: { [key in InsertionGroup]: string };
     private keys: (keyof TSpec)[];
+    public readonly columns: string;
+    public readonly commaSeparatedColumnNames: string;
+    public readonly inputParams: { [key in InsertionGroup]: string };
 
     public constructor(
         private readonly escape: Escaper,

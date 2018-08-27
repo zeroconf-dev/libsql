@@ -1,25 +1,24 @@
 import * as pg from 'pg';
-import { Client, QueryResult } from './Client';
-import { SqlQueryError } from '../Error/SqlQueryError';
-import { Platform } from './Platform';
-import { Escaper } from './Escaper';
 import escape from 'pg-escape';
+import { SqlQueryError } from '../Error/SqlQueryError';
+import { Client, QueryResult } from './Client';
+import { Escaper } from './Escaper';
+import { Platform } from './Platform';
 
 const BEGIN_TRANSACTION_QUERY = 'BEGIN';
 const COMMIT_TRANSACTION_QUERY = 'COMMIT';
 const ROLLBACK_TRANSACTION_QUERY = 'ROLLBACK';
 
 export class PostgresClient implements Client<pg.PoolClient> {
+    public get transactionNestingLevel(): number {
+        return this.numTransactionNestingLevel;
+    }
+    private client: pg.PoolClient | null;
     private numTransactionNestingLevel = 0;
     private uniqueIdentifierNumber = 0;
-    private client: pg.PoolClient | null;
 
     public constructor(client: pg.PoolClient, private done: () => void) {
         this.client = client;
-    }
-
-    public get transactionNestingLevel(): number {
-        return this.numTransactionNestingLevel;
     }
 
     public beginTransaction(): Promise<void> {
@@ -28,6 +27,7 @@ export class PostgresClient implements Client<pg.PoolClient> {
 
     public close(): void {
         this.closeAsync().catch(e => {
+            // tslint:disable-next-line:no-console
             console.error(e);
             process.exit(1);
         });
@@ -87,19 +87,25 @@ export class PostgresClient implements Client<pg.PoolClient> {
 }
 
 export class PostgresPool {
-    private pool: pg.Pool;
     private activeConnections: Set<PostgresClient>;
+    private pool: pg.Pool;
     public constructor(applicationName: string, maxConnections?: number) {
         const pgConfig: pg.PoolConfig = {
             application_name: applicationName,
-            host: 'postgres',
-            user: 'test',
             database: 'test',
-            password: 'test',
+            host: 'postgres',
             max: maxConnections,
+            password: 'test',
+            user: 'test',
         };
         this.pool = new pg.Pool(pgConfig);
         this.activeConnections = new Set();
+    }
+
+    public async close(): Promise<void> {
+        await Promise.all(Array.from(this.activeConnections.values()).map(client => client.closeAsync()));
+        await this.pool.end();
+        this.pool = null as any;
     }
 
     public connect(): Promise<PostgresClient> {
@@ -118,12 +124,6 @@ export class PostgresPool {
                 },
             );
         });
-    }
-
-    public async close(): Promise<void> {
-        await Promise.all(Array.from(this.activeConnections.values()).map(client => client.closeAsync()));
-        await this.pool.end();
-        this.pool = null as any;
     }
 
     public getActiveCount() {

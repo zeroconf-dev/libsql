@@ -4,8 +4,10 @@
   "description": "Utility library to write SQL without worry about injection or escaping",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "build": "tsc -p tsconfig.build.json"
+    "build": "tsc -p tsconfig.build.json",
+    "fmt": "prettier --write -l 'src/**/*.ts'",
+    "lint": "tslint -p .",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -30,7 +32,7 @@
     "jest": "^23.5.0",
     "pg": "^7.4.3",
     "pg-escape": "^0.2.0",
-    "pg-native": "3.0.0",
+    "prettier": "^1.14.2",
     "ts-jest": "^23.1.4",
     "tslint": "^5.11.0",
     "tslint-secoya": "^2.0.1",
@@ -38,6 +40,9 @@
   },
   "peerDependencies": {
     "pg-escape": "^0.2.0"
+  },
+  "optionalDependencies": {
+    "pg-native": "^3.0.0"
   },
   "dependencies": {
     "tslib": "^1.9.3"

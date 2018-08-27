@@ -1,6 +1,6 @@
 import { ColumnMap } from '../ColumnMapper/ColumnMap';
-import { mapForeignSqlSelect } from './MapForeignSqlSelect';
 import { Escaper } from '../Runtime/Escaper';
+import { mapForeignSqlSelect } from './MapForeignSqlSelect';
 
 const cache: Map<ColumnMap, Map<string, Map<string, Map<string, string>>>> = new Map();
 

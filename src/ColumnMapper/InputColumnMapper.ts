@@ -1,6 +1,4 @@
-export interface InputColumnMapperFn {
-    (paramName: string): string;
-}
+export type InputColumnMapperFn = (paramName: string) => string;
 
 export interface InputColumnMapperComplex {
     mapValue: (value: any) => any;

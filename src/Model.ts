@@ -1,18 +1,18 @@
-import { ColumnChanged } from './TemplateInput/ColumnChanged';
-import { ColumnUpdate } from './TemplateInput/ColumnUpdate';
-import { ForeignColumnChanged } from './TemplateInput/ForeignColumnChanged';
-import { ForeignColumnUpdate } from './TemplateInput/ForeignColumnUpdate';
-import { ColumnSelect } from './TemplateInput/ColumnSelect';
-import { ForeignColumnSelect } from './TemplateInput/ForeignColumnSelect';
 import { ColumnMap } from './ColumnMapper/ColumnMap';
 import { changed } from './Select/Changed';
-import { update } from './Select/Update';
 import { foreignChanged } from './Select/ForeignChanged';
-import { foreignUpdate } from './Select/ForeignUpdate';
-import { select } from './Select/Select';
 import { foreignSelect } from './Select/ForeignSelect';
 import { foreignSelectNoPrefix } from './Select/ForeignSelectNoPrefix';
+import { foreignUpdate } from './Select/ForeignUpdate';
+import { select } from './Select/Select';
 import { selectNoPrefix } from './Select/SelectNoPrefix';
+import { update } from './Select/Update';
+import { ColumnChanged } from './TemplateInput/ColumnChanged';
+import { ColumnSelect } from './TemplateInput/ColumnSelect';
+import { ColumnUpdate } from './TemplateInput/ColumnUpdate';
+import { ForeignColumnChanged } from './TemplateInput/ForeignColumnChanged';
+import { ForeignColumnSelect } from './TemplateInput/ForeignColumnSelect';
+import { ForeignColumnUpdate } from './TemplateInput/ForeignColumnUpdate';
 
 export type Model<TData> = ModelInterface<TData> & TData;
 

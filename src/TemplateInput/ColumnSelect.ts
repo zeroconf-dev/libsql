@@ -1,7 +1,7 @@
 import { ColumnMap } from '../ColumnMapper/ColumnMap';
+import { Escaper } from '../Runtime/Escaper';
 import { getSqlSelect } from '../Util/GetSqlSelect';
 import { mapColumnOutputValue } from '../Util/MapColumnOutputValue';
-import { Escaper } from '../Runtime/Escaper';
 
 export class ColumnSelect<T> {
     public readonly ' unusedTypeIndicator': T;

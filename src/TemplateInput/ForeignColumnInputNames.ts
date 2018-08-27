@@ -1,8 +1,8 @@
 import { ColumnMap } from '../ColumnMapper/ColumnMap';
-import { isReadOnly } from '../Util/IsReadOnly';
+import { Escaper } from '../Runtime/Escaper';
 import { getColumnName } from '../Util/GetColumnName';
 import { getForeignTableName } from '../Util/GetForeignTableName';
-import { Escaper } from '../Runtime/Escaper';
+import { isReadOnly } from '../Util/IsReadOnly';
 
 export class ForeignColumnInputNames {
     public constructor(private readonly tableName: string, private readonly columnMap: ColumnMap) {}

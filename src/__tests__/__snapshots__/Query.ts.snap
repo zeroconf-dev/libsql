@@ -3,7 +3,7 @@
 exports[`Query Simple model select 1`] = `
 "
             SELECT
-                u.id as id, u.name as name, u.email as email
+                u.email as email, u.id as id, u.name as name
             FROM
                 public.users u
             WHERE

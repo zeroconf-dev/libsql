@@ -1,7 +1,7 @@
 import { ColumnMap } from '../ColumnMapper/ColumnMap';
-import { mapPrefixedOutputColumnSqlExpr } from './MapPrefixedOutputColumnSqlExpr';
-import { getForeignTableName } from './GetForeignTableName';
 import { Escaper } from '../Runtime/Escaper';
+import { getForeignTableName } from './GetForeignTableName';
+import { mapPrefixedOutputColumnSqlExpr } from './MapPrefixedOutputColumnSqlExpr';
 
 export function mapForeignSqlSelect(
     escape: Escaper,

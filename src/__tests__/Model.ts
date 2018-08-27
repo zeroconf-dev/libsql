@@ -1,7 +1,7 @@
-import { baseModelGenerator } from '../Model';
-import { ColumnSelect } from '../TemplateInput/ColumnSelect';
 import { ColumnMap } from '../ColumnMapper/ColumnMap';
+import { baseModelGenerator } from '../Model';
 import { Escaper } from '../Runtime/Escaper';
+import { ColumnSelect } from '../TemplateInput/ColumnSelect';
 
 const escape: Escaper = {
     identifier: (ident: string) => `"${ident}"`,

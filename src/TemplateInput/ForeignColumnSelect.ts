@@ -1,6 +1,6 @@
 import { ColumnMap } from '../ColumnMapper/ColumnMap';
-import { getSqlSelectForForeignTable } from '../Util/GetSqlSelectForForeignTable';
 import { Escaper } from '../Runtime/Escaper';
+import { getSqlSelectForForeignTable } from '../Util/GetSqlSelectForForeignTable';
 import { mapColumnOutputValue } from '../Util/MapColumnOutputValue';
 
 export class ForeignColumnSelect<T> {
