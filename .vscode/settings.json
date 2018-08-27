@@ -1,4 +1,8 @@
 {
     "jest.runAllTestsFirst": false,
-    "jest.pathToJest": "docker-compose run test --"
+    "jest.pathToJest": "docker-compose run test --",
+    "cSpell.words": [
+        "Reselect",
+        "sqlu"
+    ]
 }

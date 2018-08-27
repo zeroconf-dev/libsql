@@ -1,10 +1,17 @@
 version: "3.3"
 
 services:
+  build:
+    build:
+      context: .
+      dockerfile: ./docker/build.Dockerfile
+    volumes:
+      - ./lib:/service/lib:rw
+      - ./types:/service/types:rw
   postgres:
     build:
       context: .
-      dockerfile: postgres.Dockerfile
+      dockerfile: ./docker/postgres.Dockerfile
     environment:
       - "POSTGRES_DB=test"
       - "POSTGRES_PASSWORD=test"
@@ -12,7 +19,7 @@ services:
   test:
     build:
       context: .
-      dockerfile: test.Dockerfile
+      dockerfile: ./docker/test.Dockerfile
     depends_on:
     - postgres
     links:
@@ -22,3 +29,4 @@ services:
       - ./tsconfig.json:/service/tsconfig.json:cached
       - ./jest.config.js:/service/jest.config.js:cached
       - ./src:/service/src:cached
+      - /tmp/jest_runner.json:/tmp/jest_runner.json:cached

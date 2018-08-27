@@ -1,8 +1,8 @@
-import { DatabaseTypeAdapter } from '../DatabaseTypeAdapter';
+import { AdapterBase } from './AdapterBase';
 
 type NumberTypes = 'integer' | 'double' | 'float';
 
-export class NumberAdapter extends DatabaseTypeAdapter<number> {
+export class NumberAdapter extends AdapterBase<number> {
     public constructor(databaseType: NumberTypes = 'integer') {
         super(databaseType);
     }

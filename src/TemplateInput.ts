@@ -1,16 +1,16 @@
-import { RawInterpolationString } from './RawInterpolationString';
-import { ParamInput } from './ParamInput';
-import { ColumnSelect } from './ColumnSelect';
-import { ForeignColumnSelect } from './ForeignColumnSelect';
-import { SqlPartString } from './SqlPartString';
-import { InputTableWithValues } from './InputTableWithValues';
-import { ColumnInputNames } from './ColumnInputNames';
-import { AdapterParamInput } from './AdapterParamInput';
-import { ForeignColumnInputNames } from './ForeignColumnInputNames';
-import { ColumnUpdate } from './ColumnUpdate';
-import { ColumnChanged } from './ColumnChanged';
-import { ForeignColumnChanged } from './ForeignColumnChanged';
-import { ForeignColumnUpdate } from './ForeignColumnUpdate';
+import { RawInterpolationString } from './TemplateInput/RawInterpolationString';
+import { ParamInput } from './TemplateInput/ParamInput';
+import { ColumnSelect } from './TemplateInput/ColumnSelect';
+import { ForeignColumnSelect } from './TemplateInput/ForeignColumnSelect';
+import { SqlPartString } from './TemplateInput/SqlPartString';
+import { InputTableWithValues } from './TemplateInput/InputTableWithValues';
+import { ColumnInputNames } from './TemplateInput/ColumnInputNames';
+import { AdapterParamInput } from './TemplateInput/AdapterParamInput';
+import { ForeignColumnInputNames } from './TemplateInput/ForeignColumnInputNames';
+import { ColumnUpdate } from './TemplateInput/ColumnUpdate';
+import { ColumnChanged } from './TemplateInput/ColumnChanged';
+import { ForeignColumnChanged } from './TemplateInput/ForeignColumnChanged';
+import { ForeignColumnUpdate } from './TemplateInput/ForeignColumnUpdate';
 
 export type TemplateInput<T> =
     | AdapterParamInput<any>

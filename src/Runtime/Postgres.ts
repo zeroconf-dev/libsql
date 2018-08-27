@@ -1,8 +1,8 @@
 import * as pg from 'pg';
 import { Client, QueryResult } from './Client';
-import { SqlQueryError } from '../SqlQueryError';
+import { SqlQueryError } from '../Error/SqlQueryError';
 import { Platform } from './Platform';
-import { Escaper } from '../Escaper';
+import { Escaper } from './Escaper';
 import escape from 'pg-escape';
 
 const BEGIN_TRANSACTION_QUERY = 'BEGIN';

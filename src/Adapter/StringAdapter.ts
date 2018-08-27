@@ -1,8 +1,8 @@
-import { DatabaseTypeAdapter } from '../DatabaseTypeAdapter';
+import { AdapterBase } from './AdapterBase';
 
 type StringTypes = 'text' | 'citext' | 'varchar';
 
-export class StringAdapter extends DatabaseTypeAdapter<string> {
+export class StringAdapter extends AdapterBase<string> {
     public constructor(databaseType: StringTypes = 'text') {
         super(databaseType);
     }
