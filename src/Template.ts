@@ -17,10 +17,7 @@ import { AffectedRowsMismatchError } from './Error/AffectedRowsMismatchError';
 import { NonUniqueResultError } from './Error/NonUniqueResultError';
 import { NoResultsFoundError } from './Error/NoResultsFoundError';
 import { Platform } from './Runtime/Platform';
-
-function assertNever(_: never, errorMsg: string) {
-    throw new Error(errorMsg);
-}
+import { assertNever } from './Util/AssertNever';
 
 export interface ExecuteResult<T> {
     params: any[];
@@ -79,6 +76,10 @@ export class Template<T> {
         }
 
         return res.result.rows[0];
+    }
+
+    public getSql<TClient extends Client<TDB>, TDB = any>(platform: Platform<TClient, TDB>): string {
+        return Template.mapInput(this.queryParts, this.input, platform).sql;
     }
 
     private async executeImpl<TClient extends Client<TDB>, TDB = any>(

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Query Simple model select 1`] = `
+"
+            SELECT
+                u.id as id, u.name as name, u.email as email
+            FROM
+                public.users u
+            WHERE
+                u.id = $1
+        "
+`;
