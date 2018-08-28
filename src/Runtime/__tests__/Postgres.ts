@@ -53,9 +53,7 @@ describe('PostgresClient', () => {
                 10,
             );
 
-            return expect(pool2.connect()).rejects.toThrowErrorMatchingInlineSnapshot(
-                `"getaddrinfo ENOTFOUND non-existing-host non-existing-host:5432"`,
-            );
+            return expect(pool2.connect()).rejects.toThrowError();
         });
 
         test('Connection with invalid credentials throws', () => {
@@ -103,7 +101,7 @@ describe('PostgresEscaper', () => {
             expect(escape.identifier('test')).toBe('test');
         });
 
-        test('lower case kewyword is force escaped', () => {
+        test('lower case keyword is force escaped', () => {
             expect(escape.identifier('from')).toBe('"from"');
         });
 
