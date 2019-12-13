@@ -1,5 +1,5 @@
-import { AdapterBase } from '../Adapter/AdapterBase';
+import { Adapter } from '@zeroconf/libsql/Adapter';
 
-export function toSqlValue<T>(val: T | null, adapter: AdapterBase<T>): string | null {
+export function toSqlValue<T>(val: T | null, adapter: Adapter<T>): string | null {
     return val == null ? null : adapter.toSqlValue(val);
 }

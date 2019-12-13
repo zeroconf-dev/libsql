@@ -21,7 +21,7 @@ export class SqlQueryError extends Error {
     public constructor(
         error: any,
         public readonly sqlQuery: string,
-        public readonly sqlParameters: ReadonlyArray<any> | null,
+        public readonly sqlParameters: readonly any[] | null,
     ) {
         super(SqlQueryError.getErrorMessage(error));
         Object.setPrototypeOf(this, SqlQueryError.prototype);

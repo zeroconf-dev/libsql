@@ -1,9 +1,10 @@
-import { DataAdapterMap } from '../Adapter/DataAdapters';
-import { getAdapter } from '../Adapter/GetAdapter';
+import { Adapter } from '@zeroconf/libsql/Adapter';
+import { DataAdapter, DataAdapterValue } from '@zeroconf/libsql/Adapter/DataAdapters';
+import { getAdapter } from '@zeroconf/libsql/Adapter/GetAdapter';
 
-export function adapterValue<TAdapter extends keyof DataAdapterMap>(
+export function adapterValue<TAdapter extends DataAdapter, TValue extends DataAdapterValue<TAdapter>>(
     adapterName: TAdapter,
     value: string,
-): DataAdapterMap[TAdapter][' valueType'] {
-    return getAdapter(adapterName).fromSqlValue(value);
+): TValue {
+    return (getAdapter(adapterName) as Adapter<TValue>).fromSqlValue(value);
 }

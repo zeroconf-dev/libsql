@@ -1,11 +1,12 @@
-import { DataAdapterMap } from '../Adapter/DataAdapters';
-import { getAdapter } from '../Adapter/GetAdapter';
-import { AdapterParamInput } from '../TemplateInput/AdapterParamInput';
+import { Adapter } from '@zeroconf/libsql/Adapter';
+import { DataAdapter, DataAdapterValue } from '@zeroconf/libsql/Adapter/DataAdapters';
+import { getAdapter } from '@zeroconf/libsql/Adapter/GetAdapter';
+import { AdapterParamInput } from '@zeroconf/libsql/TemplateInput/AdapterParamInput';
 
-export function adapterParam<TAdapter extends keyof DataAdapterMap, T extends DataAdapterMap[TAdapter]>(
+export function adapterParam<TAdapter extends DataAdapter, TValue extends DataAdapterValue<TAdapter>>(
     adapter: TAdapter,
     name: string,
-    value: T[' valueType'] | null,
-): AdapterParamInput<T[' valueType']> {
-    return new AdapterParamInput<T[' valueType']>(getAdapter(adapter), name, value);
+    value: TValue | null,
+): AdapterParamInput<TValue> {
+    return new AdapterParamInput(getAdapter(adapter) as Adapter<TValue>, name, value);
 }

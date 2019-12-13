@@ -1,11 +1,9 @@
+import { SqlQueryError } from '@zeroconf/libsql/Error/SqlQueryError';
+import { Client, QueryResult } from '@zeroconf/libsql/Runtime/Client';
+import { Escaper } from '@zeroconf/libsql/Runtime/Escaper';
+import { Platform } from '@zeroconf/libsql/Runtime/Platform';
 import * as pg from 'pg';
-import escape from 'pg-escape';
-import { SqlQueryError } from '../Error/SqlQueryError';
-import { Client, QueryResult } from './Client';
-import { Escaper } from './Escaper';
-import { Platform } from './Platform';
-
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+import * as escape from 'pg-escape';
 
 const BEGIN_TRANSACTION_QUERY = 'BEGIN';
 const COMMIT_TRANSACTION_QUERY = 'COMMIT';

@@ -1,6 +1,6 @@
-import { Template } from './Template';
-import { TemplateInput } from './TemplateInput';
+import { Template } from '@zeroconf/libsql/Template';
+import { TemplateInput } from '@zeroconf/libsql/TemplateInput';
 
-export function Query<T = any>(parts: TemplateStringsArray, ...input: TemplateInput<T>[]): Template<T> {
+export function Query<T = unknown>(parts: TemplateStringsArray, ...input: TemplateInput<T>[]): Template<T> {
     return new Template<T>(parts, input);
 }

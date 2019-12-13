@@ -1,7 +1,7 @@
-import { ColumnMap } from '../ColumnMapper/ColumnMap';
-import { Escaper } from '../Runtime/Escaper';
-import { getForeignTableName } from './GetForeignTableName';
-import { mapPrefixedOutputColumnSqlExpr } from './MapPrefixedOutputColumnSqlExpr';
+import { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap';
+import { Escaper } from '@zeroconf/libsql/Runtime/Escaper';
+import { getForeignTableName } from '@zeroconf/libsql/Util/GetForeignTableName';
+import { mapPrefixedOutputColumnSqlExpr } from '@zeroconf/libsql/Util/MapPrefixedOutputColumnSqlExpr';
 
 export function mapForeignSqlSelect(
     escape: Escaper,

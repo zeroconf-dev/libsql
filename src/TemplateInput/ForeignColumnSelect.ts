@@ -1,11 +1,9 @@
-import { ColumnMap } from '../ColumnMapper/ColumnMap';
-import { Escaper } from '../Runtime/Escaper';
-import { getSqlSelectForForeignTable } from '../Util/GetSqlSelectForForeignTable';
-import { mapColumnOutputValue } from '../Util/MapColumnOutputValue';
+import { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap';
+import { Escaper } from '@zeroconf/libsql/Runtime/Escaper';
+import { getSqlSelectForForeignTable } from '@zeroconf/libsql/Util/GetSqlSelectForForeignTable';
+import { mapColumnOutputValue } from '@zeroconf/libsql/Util/MapColumnOutputValue';
 
-export class ForeignColumnSelect<T> {
-    public readonly ' unusedTypeIndicator': T;
-
+export class ForeignColumnSelect<_T> {
     public constructor(
         private readonly tableName: string,
         private readonly tableAlias: string | null,
@@ -13,7 +11,6 @@ export class ForeignColumnSelect<T> {
         private readonly prefix?: string,
     ) {
         this.prefix = prefix;
-        this[' unusedTypeIndicator'] = null as any;
     }
 
     public getSql(escape: Escaper) {

@@ -1,7 +1,11 @@
-export abstract class AdapterBase<T> {
-    public readonly ' valueType': T;
+import { Adapter } from '@zeroconf/libsql/Adapter';
+
+export abstract class AdapterBase<T> implements Adapter<T> {
+    public readonly databaseType: string;
     public readonly useTypeCastString: boolean;
-    public constructor(public readonly databaseType: string, useTypeCastString?: boolean) {
+
+    public constructor(databaseType: string, useTypeCastString?: boolean) {
+        this.databaseType = databaseType;
         this.useTypeCastString = useTypeCastString || false;
     }
 

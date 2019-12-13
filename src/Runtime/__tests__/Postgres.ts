@@ -1,4 +1,4 @@
-import { PostgresEscaper, PostgresPool } from '../Postgres';
+import { PostgresEscaper, PostgresPool } from '@zeroconf/libsql/Runtime/Postgres';
 
 describe('PostgresClient', () => {
     let pool: PostgresPool;

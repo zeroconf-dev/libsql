@@ -1,6 +1,6 @@
-import { ColumnMap } from '../ColumnMapper/ColumnMap';
-import { Escaper } from '../Runtime/Escaper';
-import { mapSqlSelect } from './MapSqlSelect';
+import { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap';
+import { Escaper } from '@zeroconf/libsql/Runtime/Escaper';
+import { mapSqlSelect } from '@zeroconf/libsql/Util/MapSqlSelect';
 
 const cache: Map<ColumnMap, Map<string | null, Map<string, string>>> = new Map();
 

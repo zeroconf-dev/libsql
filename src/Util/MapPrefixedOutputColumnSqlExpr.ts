@@ -1,5 +1,5 @@
-import { ColumnMapper } from '../ColumnMapper/ColumnMapper';
-import { Escaper } from '../Runtime/Escaper';
+import { ColumnMapper } from '@zeroconf/libsql/ColumnMapper';
+import { Escaper } from '@zeroconf/libsql/Runtime/Escaper';
 
 export function mapPrefixedOutputColumnSqlExpr(
     escape: Escaper,

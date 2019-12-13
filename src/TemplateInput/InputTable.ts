@@ -1,6 +1,11 @@
-import { Escaper } from '../Runtime/Escaper';
-import { toSqlValue } from '../Util/ToSqlValue';
-import { InputTableWithValues, InsertionGroup, TableType, TableTypeSpec } from './InputTableWithValues';
+import { Escaper } from '@zeroconf/libsql/Runtime/Escaper';
+import {
+    InputTableWithValues,
+    InsertionGroup,
+    TableType,
+    TableTypeSpec,
+} from '@zeroconf/libsql/TemplateInput/InputTableWithValues';
+import { toSqlValue } from '@zeroconf/libsql/Util/ToSqlValue';
 
 export type KeyMappings<TSpec extends TableTypeSpec> = Partial<{ [key in keyof TableType<TSpec>]: string }>;
 
@@ -91,7 +96,7 @@ export class InputTable<TSpec extends TableTypeSpec> {
         );
     }
 
-    public withValues(values: ReadonlyArray<TableType<TSpec>>): InputTableWithValues<TSpec> {
+    public withValues(values: readonly TableType<TSpec>[]): InputTableWithValues<TSpec> {
         return new InputTableWithValues(this.escape, this, values);
     }
 }

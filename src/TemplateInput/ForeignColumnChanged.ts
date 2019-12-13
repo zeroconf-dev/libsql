@@ -1,11 +1,11 @@
-import { ColumnMap } from '../ColumnMapper/ColumnMap';
-import { Escaper } from '../Runtime/Escaper';
-import { getColumnInputExpr } from '../Util/GetColumnInputExpr';
-import { getForeignTableName } from '../Util/GetForeignTableName';
-import { isReadOnly } from '../Util/IsReadOnly';
-import { mapInputValue } from '../Util/MapInputValue';
-import { mapOutputColumnSqlExpr } from '../Util/MapOutputColumnSqlExpr';
-import { prefixParamName } from '../Util/PrefixParamName';
+import { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap';
+import { Escaper } from '@zeroconf/libsql/Runtime/Escaper';
+import { getColumnInputExpr } from '@zeroconf/libsql/Util/GetColumnInputExpr';
+import { getForeignTableName } from '@zeroconf/libsql/Util/GetForeignTableName';
+import { isReadOnly } from '@zeroconf/libsql/Util/IsReadOnly';
+import { mapInputValue } from '@zeroconf/libsql/Util/MapInputValue';
+import { mapOutputColumnSqlExpr } from '@zeroconf/libsql/Util/MapOutputColumnSqlExpr';
+import { prefixParamName } from '@zeroconf/libsql/Util/PrefixParamName';
 
 export class ForeignColumnChanged {
     public constructor(

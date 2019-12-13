@@ -1,4 +1,5 @@
-import { ColumnMapper } from '../ColumnMapper/ColumnMapper';
+import { ColumnMapper } from '@zeroconf/libsql/ColumnMapper';
+
 export function mapColumnOutputValue(columnMap: string | ColumnMapper, value: any): any {
     if (value == null) {
         return;

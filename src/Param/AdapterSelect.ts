@@ -1,12 +1,11 @@
-import { DataAdapterMap } from '../Adapter/DataAdapters';
-import { getAdapter } from '../Adapter/GetAdapter';
-import { RawInterpolationString } from '../TemplateInput/RawInterpolationString';
+import { DataAdapter } from '@zeroconf/libsql/Adapter/DataAdapters';
+import { getAdapter } from '@zeroconf/libsql/Adapter/GetAdapter';
+import { RawInterpolationString } from '@zeroconf/libsql/TemplateInput/RawInterpolationString';
 
-export function adapterSelect<TAdapter extends keyof DataAdapterMap>(
+export function adapterSelect<TAdapter extends DataAdapter>(
     adapterName: TAdapter,
     expr: string,
 ): RawInterpolationString {
     const adapter = getAdapter(adapterName);
-
     return new RawInterpolationString('(' + adapter.wrapOutputValue(expr) + '::text)');
 }

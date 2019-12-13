@@ -1,8 +1,8 @@
-import { AdapterBase } from '../Adapter/AdapterBase';
+import { Adapter } from '@zeroconf/libsql/Adapter';
 
 export class AdapterParamInput<T> {
     public constructor(
-        public readonly adapter: AdapterBase<T>,
+        public readonly adapter: Adapter<T>,
         public readonly name: string,
         public readonly value: T | null,
     ) {}

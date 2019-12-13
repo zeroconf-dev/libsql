@@ -1,15 +1,16 @@
-import { AdapterBase } from '../Adapter/AdapterBase';
-import { Client } from '../Runtime/Client';
-import { Escaper } from '../Runtime/Escaper';
-import { InputTable } from './InputTable';
+import { Adapter } from '@zeroconf/libsql/Adapter';
+import { AdapterValue } from '@zeroconf/libsql/Adapter/DataAdapters';
+import { Client } from '@zeroconf/libsql/Runtime/Client';
+import { Escaper } from '@zeroconf/libsql/Runtime/Escaper';
+import { InputTable } from '@zeroconf/libsql/TemplateInput/InputTable';
 
 export type InsertionGroup = 1 | 2 | 4 | 8 | 16 | 32 | 64 | 128;
 
 export interface TableTypeSpec {
-    readonly [key: string]: AdapterBase<any>;
+    readonly [key: string]: Adapter<any>;
 }
 
-export type TableType<TSpec extends TableTypeSpec> = { [key in keyof TSpec]: TSpec[key][' valueType'] | null };
+export type TableType<TSpec extends TableTypeSpec> = { [key in keyof TSpec]: AdapterValue<TSpec[key]> | null };
 
 export class InputTableWithValues<TSpec extends TableTypeSpec, TDB = any> {
     private static readonly MIN_ROWS_BEFORE_CREATE_INDEX = 20;
@@ -20,7 +21,7 @@ export class InputTableWithValues<TSpec extends TableTypeSpec, TDB = any> {
     public constructor(
         private escape: Escaper,
         public readonly inputTable: InputTable<TSpec>,
-        public readonly values: ReadonlyArray<TableType<TSpec>>,
+        public readonly values: readonly TableType<TSpec>[],
         public readonly idColumnName: string | null = null,
     ) {
         this.rowInsertions = this.calculateRowInsertions(values.length);

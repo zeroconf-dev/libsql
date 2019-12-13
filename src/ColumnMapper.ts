@@ -1,5 +1,5 @@
-import { InputColumnMapper } from './InputColumnMapper';
-import { OutputColumnMapper } from './OutputColumnMapper';
+import { InputColumnMapper } from '@zeroconf/libsql/ColumnMapper/InputColumnMapper';
+import { OutputColumnMapper } from '@zeroconf/libsql/ColumnMapper/OutputColumnMapper';
 
 export interface ColumnMapper {
     columnName: string;

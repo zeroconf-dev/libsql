@@ -1,6 +1,7 @@
-import { DateAdapter } from './DateAdapter';
-import { NumberAdapter } from './NumberAdapter';
-import { StringAdapter } from './StringAdapter';
+import { Adapter } from '@zeroconf/libsql/Adapter';
+import { DateAdapter } from '@zeroconf/libsql/Adapter/DateAdapter';
+import { NumberAdapter } from '@zeroconf/libsql/Adapter/NumberAdapter';
+import { StringAdapter } from '@zeroconf/libsql/Adapter/StringAdapter';
 
 const dateAdapter = new DateAdapter();
 
@@ -22,5 +23,7 @@ export const dataAdapters = {
     varchar: varcharAdapter,
 };
 
-export type DataAdapterMap = typeof dataAdapters;
 export type DataAdapter = keyof DataAdapterMap;
+export type DataAdapterMap = typeof dataAdapters;
+export type DataAdapterValue<TAdapter extends DataAdapter> = AdapterValue<DataAdapterMap[TAdapter]>;
+export type AdapterValue<TAdapter extends Adapter<any>> = TAdapter extends Adapter<infer R> ? R : never;

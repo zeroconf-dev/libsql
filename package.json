@@ -1,5 +1,5 @@
 {
-  "name": "@graphen/sql-utils",
+  "name": "@zeroconf/libsql",
   "version": "1.0.0",
   "description": "Utility library to write SQL without worry about injection or escaping",
   "main": "index.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/graphen/sql-utils.git"
+    "url": "git+https://github.com/zeroconf-dev/libsql.git"
   },
   "keywords": [
     "sql",
@@ -22,21 +22,22 @@
   "author": "Brian Kejlbjerg <briankchristensen@gmail.com>",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/graphen/sql-utils/issues"
+    "url": "https://github.com/zeroconf-dev/libsql/issues"
   },
-  "homepage": "https://github.com/graphen/sql-utils#readme",
+  "homepage": "https://github.com/zeroconf-dev/libsql#readme",
   "devDependencies": {
-    "@types/jest": "23.3.1",
-    "@types/pg": "^7.4.10",
+    "@types/jest": "24.0.23",
+    "@types/node": "^10.17.9",
+    "@types/pg": "^7.11.2",
     "@types/pg-escape": "^0.2.0",
-    "jest": "^23.5.0",
-    "pg": "^7.4.3",
+    "jest": "^24.9.0",
+    "pg": "^7.14.0",
     "pg-escape": "^0.2.0",
-    "prettier": "^1.14.2",
-    "ts-jest": "^23.1.4",
-    "tslint": "^5.11.0",
-    "tslint-secoya": "^2.0.1",
-    "typescript": "^3.0.1"
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.2.0",
+    "tslint": "^5.20.1",
+    "tslint-secoya": "^2.0.7",
+    "typescript": "^3.7.3"
   },
   "peerDependencies": {
     "pg-escape": "^0.2.0"
@@ -45,6 +46,6 @@
     "pg-native": "^3.0.0"
   },
   "dependencies": {
-    "tslib": "^1.9.3"
+    "tslib": "^1.10.0"
   }
 }

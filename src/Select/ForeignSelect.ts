@@ -1,5 +1,5 @@
-import { ColumnMap } from '../ColumnMapper/ColumnMap';
-import { ForeignColumnSelect } from '../TemplateInput/ForeignColumnSelect';
+import { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap';
+import { ForeignColumnSelect } from '@zeroconf/libsql/TemplateInput/ForeignColumnSelect';
 
 export function foreignSelect<T>(
     tableName: string,

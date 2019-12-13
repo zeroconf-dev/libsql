@@ -1,18 +1,18 @@
-import { ColumnMap } from './ColumnMapper/ColumnMap';
-import { changed } from './Select/Changed';
-import { foreignChanged } from './Select/ForeignChanged';
-import { foreignSelect } from './Select/ForeignSelect';
-import { foreignSelectNoPrefix } from './Select/ForeignSelectNoPrefix';
-import { foreignUpdate } from './Select/ForeignUpdate';
-import { select } from './Select/Select';
-import { selectNoPrefix } from './Select/SelectNoPrefix';
-import { update } from './Select/Update';
-import { ColumnChanged } from './TemplateInput/ColumnChanged';
-import { ColumnSelect } from './TemplateInput/ColumnSelect';
-import { ColumnUpdate } from './TemplateInput/ColumnUpdate';
-import { ForeignColumnChanged } from './TemplateInput/ForeignColumnChanged';
-import { ForeignColumnSelect } from './TemplateInput/ForeignColumnSelect';
-import { ForeignColumnUpdate } from './TemplateInput/ForeignColumnUpdate';
+import { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap';
+import { changed } from '@zeroconf/libsql/Select/Changed';
+import { foreignChanged } from '@zeroconf/libsql/Select/ForeignChanged';
+import { foreignSelect } from '@zeroconf/libsql/Select/ForeignSelect';
+import { foreignSelectNoPrefix } from '@zeroconf/libsql/Select/ForeignSelectNoPrefix';
+import { foreignUpdate } from '@zeroconf/libsql/Select/ForeignUpdate';
+import { select } from '@zeroconf/libsql/Select/Select';
+import { selectNoPrefix } from '@zeroconf/libsql/Select/SelectNoPrefix';
+import { update } from '@zeroconf/libsql/Select/Update';
+import { ColumnChanged } from '@zeroconf/libsql/TemplateInput/ColumnChanged';
+import { ColumnSelect } from '@zeroconf/libsql/TemplateInput/ColumnSelect';
+import { ColumnUpdate } from '@zeroconf/libsql/TemplateInput/ColumnUpdate';
+import { ForeignColumnChanged } from '@zeroconf/libsql/TemplateInput/ForeignColumnChanged';
+import { ForeignColumnSelect } from '@zeroconf/libsql/TemplateInput/ForeignColumnSelect';
+import { ForeignColumnUpdate } from '@zeroconf/libsql/TemplateInput/ForeignColumnUpdate';
 
 export type Model<TData> = ModelInterface<TData> & TData;
 
@@ -37,20 +37,17 @@ export interface ModelConstructor<TData> {
 }
 
 export function baseModelGenerator<TData>(name: string, columnMap: ColumnMap) {
-    const reselectColumnMap = Object.keys(columnMap).reduce(
-        (carry, columnName) => {
-            const mapped = columnMap[columnName];
-            carry[columnName] = {
-                columnName: columnName,
-                foreignTableName: typeof mapped === 'string' ? undefined : mapped.foreignTableName,
-            };
-            return carry;
-        },
-        {} as ColumnMap,
-    );
+    const reselectColumnMap = Object.keys(columnMap).reduce((carry, columnName) => {
+        const mapped = columnMap[columnName];
+        carry[columnName] = {
+            columnName: columnName,
+            foreignTableName: typeof mapped === 'string' ? undefined : mapped.foreignTableName,
+        };
+        return carry;
+    }, {} as ColumnMap);
     Object.freeze(reselectColumnMap);
 
-    abstract class AbstractBaseModel implements ModelInterface<TData> {
+    return class implements ModelInterface<TData> {
         public static columnSelect(tableAlias: string, prefix?: string | undefined): ColumnSelect<TData> {
             return select<TData>(tableAlias, columnMap, prefix);
         }
@@ -110,7 +107,5 @@ export function baseModelGenerator<TData>(name: string, columnMap: ColumnMap) {
         public static get TypeName() {
             return name;
         }
-    }
-
-    return AbstractBaseModel;
+    };
 }

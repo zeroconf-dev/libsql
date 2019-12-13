@@ -1,4 +1,4 @@
-import { AdapterBase } from './AdapterBase';
+import { AdapterBase } from '@zeroconf/libsql/Adapter/AdapterBase';
 
 type StringTypes = 'text' | 'citext' | 'varchar';
 

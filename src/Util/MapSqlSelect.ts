@@ -1,7 +1,7 @@
-import { ColumnMap } from '../ColumnMapper/ColumnMap';
-import { Escaper } from '../Runtime/Escaper';
-import { isForeignTable } from './IsForeignTable';
-import { mapPrefixedOutputColumnSqlExpr } from './MapPrefixedOutputColumnSqlExpr';
+import { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap';
+import { Escaper } from '@zeroconf/libsql/Runtime/Escaper';
+import { isForeignTable } from '@zeroconf/libsql/Util/IsForeignTable';
+import { mapPrefixedOutputColumnSqlExpr } from '@zeroconf/libsql/Util/MapPrefixedOutputColumnSqlExpr';
 
 export function mapSqlSelect(escape: Escaper, alias: string | null, columnMap: ColumnMap, prefix: string): string {
     const properties = Object.keys(columnMap).filter(e => !isForeignTable(columnMap[e]));

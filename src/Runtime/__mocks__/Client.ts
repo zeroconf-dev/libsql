@@ -1,4 +1,4 @@
-import { Client, QueryResult } from '../Client';
+import { Client, QueryResult } from '@zeroconf/libsql/Runtime/Client';
 
 export class MockClient implements Client<any> {
     private result: QueryResult | null = null;

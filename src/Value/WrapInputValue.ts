@@ -1,5 +1,5 @@
-import { AdapterBase } from '../Adapter/AdapterBase';
+import { Adapter } from '@zeroconf/libsql/Adapter';
 
-export function wrapInputValue<T>(input: string, adapter: AdapterBase<T>): string {
+export function wrapInputValue<T>(input: string, adapter: Adapter<T>): string {
     return adapter.wrapInputValue(input);
 }

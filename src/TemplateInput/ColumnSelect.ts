@@ -1,10 +1,9 @@
-import { ColumnMap } from '../ColumnMapper/ColumnMap';
-import { Escaper } from '../Runtime/Escaper';
-import { getSqlSelect } from '../Util/GetSqlSelect';
-import { mapColumnOutputValue } from '../Util/MapColumnOutputValue';
+import { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap';
+import { Escaper } from '@zeroconf/libsql/Runtime/Escaper';
+import { getSqlSelect } from '@zeroconf/libsql/Util/GetSqlSelect';
+import { mapColumnOutputValue } from '@zeroconf/libsql/Util/MapColumnOutputValue';
 
-export class ColumnSelect<T> {
-    public readonly ' unusedTypeIndicator': T;
+export class ColumnSelect<_T> {
     public constructor(
         private readonly tableAlias: string | null,
         private readonly map: ColumnMap,
@@ -13,7 +12,6 @@ export class ColumnSelect<T> {
         this.tableAlias = tableAlias;
         this.map = map;
         this.prefix = prefix;
-        this[' unusedTypeIndicator'] = null as any;
     }
 
     public getSql(escape: Escaper) {

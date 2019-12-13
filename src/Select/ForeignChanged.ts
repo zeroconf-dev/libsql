@@ -1,5 +1,5 @@
-import { ColumnMap } from '../ColumnMapper/ColumnMap';
-import { ForeignColumnChanged } from '../TemplateInput/ForeignColumnChanged';
+import { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap';
+import { ForeignColumnChanged } from '@zeroconf/libsql/TemplateInput/ForeignColumnChanged';
 
 export function foreignChanged(
     tableName: string,

@@ -1,23 +1,23 @@
-import { AffectedRowsMismatchError } from './Error/AffectedRowsMismatchError';
-import { NonUniqueResultError } from './Error/NonUniqueResultError';
-import { NoResultsFoundError } from './Error/NoResultsFoundError';
-import { Client } from './Runtime/Client';
-import { Platform } from './Runtime/Platform';
-import { TemplateInput } from './TemplateInput';
-import { AdapterParamInput } from './TemplateInput/AdapterParamInput';
-import { ColumnChanged } from './TemplateInput/ColumnChanged';
-import { ColumnInputNames } from './TemplateInput/ColumnInputNames';
-import { ColumnSelect } from './TemplateInput/ColumnSelect';
-import { ColumnUpdate } from './TemplateInput/ColumnUpdate';
-import { ForeignColumnChanged } from './TemplateInput/ForeignColumnChanged';
-import { ForeignColumnInputNames } from './TemplateInput/ForeignColumnInputNames';
-import { ForeignColumnSelect } from './TemplateInput/ForeignColumnSelect';
-import { ForeignColumnUpdate } from './TemplateInput/ForeignColumnUpdate';
-import { InputTableWithValues } from './TemplateInput/InputTableWithValues';
-import { ParamInput } from './TemplateInput/ParamInput';
-import { RawInterpolationString } from './TemplateInput/RawInterpolationString';
-import { SqlPartString } from './TemplateInput/SqlPartString';
-import { assertNever } from './Util/AssertNever';
+import { AffectedRowsMismatchError } from '@zeroconf/libsql/Error/AffectedRowsMismatchError';
+import { NonUniqueResultError } from '@zeroconf/libsql/Error/NonUniqueResultError';
+import { NoResultsFoundError } from '@zeroconf/libsql/Error/NoResultsFoundError';
+import { Client } from '@zeroconf/libsql/Runtime/Client';
+import { Platform } from '@zeroconf/libsql/Runtime/Platform';
+import { TemplateInput } from '@zeroconf/libsql/TemplateInput';
+import { AdapterParamInput } from '@zeroconf/libsql/TemplateInput/AdapterParamInput';
+import { ColumnChanged } from '@zeroconf/libsql/TemplateInput/ColumnChanged';
+import { ColumnInputNames } from '@zeroconf/libsql/TemplateInput/ColumnInputNames';
+import { ColumnSelect } from '@zeroconf/libsql/TemplateInput/ColumnSelect';
+import { ColumnUpdate } from '@zeroconf/libsql/TemplateInput/ColumnUpdate';
+import { ForeignColumnChanged } from '@zeroconf/libsql/TemplateInput/ForeignColumnChanged';
+import { ForeignColumnInputNames } from '@zeroconf/libsql/TemplateInput/ForeignColumnInputNames';
+import { ForeignColumnSelect } from '@zeroconf/libsql/TemplateInput/ForeignColumnSelect';
+import { ForeignColumnUpdate } from '@zeroconf/libsql/TemplateInput/ForeignColumnUpdate';
+import { InputTableWithValues } from '@zeroconf/libsql/TemplateInput/InputTableWithValues';
+import { ParamInput } from '@zeroconf/libsql/TemplateInput/ParamInput';
+import { RawInterpolationString } from '@zeroconf/libsql/TemplateInput/RawInterpolationString';
+import { SqlPartString } from '@zeroconf/libsql/TemplateInput/SqlPartString';
+import { assertNever } from '@zeroconf/libsql/Util/AssertNever';
 
 export interface ExecuteResult<T> {
     params: any[];
@@ -154,7 +154,7 @@ export class Template<T> {
 
         const affected = queryRes.rowCount;
         const rows = queryRes.rows.map<T>(e => {
-            const mappedRow = new Set();
+            const mappedRow = new Set<string>();
             columnSelects.forEach(cs => cs.transformOutput(e, mappedRow));
             return e;
         });

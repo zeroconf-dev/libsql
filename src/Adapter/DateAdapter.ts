@@ -1,4 +1,4 @@
-import { AdapterBase } from './AdapterBase';
+import { AdapterBase } from '@zeroconf/libsql/Adapter/AdapterBase';
 
 const SQL_VALUE_FORMAT = /\d{4}-\d{2}-\d{2}$/;
 

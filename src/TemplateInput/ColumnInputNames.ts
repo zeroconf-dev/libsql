@@ -1,8 +1,8 @@
-import { ColumnMap } from '../ColumnMapper/ColumnMap';
-import { Escaper } from '../Runtime/Escaper';
-import { getColumnName } from '../Util/GetColumnName';
-import { isForeignTable } from '../Util/IsForeignTable';
-import { isReadOnly } from '../Util/IsReadOnly';
+import { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap';
+import { Escaper } from '@zeroconf/libsql/Runtime/Escaper';
+import { getColumnName } from '@zeroconf/libsql/Util/GetColumnName';
+import { isForeignTable } from '@zeroconf/libsql/Util/IsForeignTable';
+import { isReadOnly } from '@zeroconf/libsql/Util/IsReadOnly';
 
 export class ColumnInputNames {
     public constructor(private readonly columnMap: ColumnMap) {}
