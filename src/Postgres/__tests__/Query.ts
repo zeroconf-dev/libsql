@@ -1,8 +1,8 @@
 import { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap';
 import { baseModelGenerator } from '@zeroconf/libsql/Model';
+import { param } from '@zeroconf/libsql/Param/Param';
 import { Query as sql } from '@zeroconf/libsql/Query';
 import { PostgresEscaper, PostgresPlatform, PostgresPool } from '@zeroconf/libsql/Runtime/Postgres';
-import { param } from '@zeroconf/libsql/Select/Param';
 
 describe('Postgres.Query', () => {
     let pool: PostgresPool;

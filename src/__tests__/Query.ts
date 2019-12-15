@@ -1,10 +1,10 @@
 import { sql } from '@zeroconf/libsql';
 import { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap';
 import { baseModelGenerator } from '@zeroconf/libsql/Model';
+import { param } from '@zeroconf/libsql/Param/Param';
 import { MockClient } from '@zeroconf/libsql/Runtime/__mocks__/Client';
 import { mockEscaper } from '@zeroconf/libsql/Runtime/__mocks__/Escaper';
 import { MockPlatform } from '@zeroconf/libsql/Runtime/__mocks__/Platform';
-import { param } from '@zeroconf/libsql/Select/Param';
 
 const client = new MockClient();
 const platform = new MockPlatform(client, mockEscaper);

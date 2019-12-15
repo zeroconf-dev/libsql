@@ -2,8 +2,7 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "declaration": true,
-        "declarationDir": "./types",
         "declarationMap": true
     },
-    "exclude": ["**/__tests__/*", "**/__mocks__/*", "lib", "node_modules", "types"]
+    "exclude": ["**/__tests__/*", "**/__mocks__/*", "build", "node_modules"]
 }
