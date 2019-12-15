@@ -5,17 +5,17 @@ module.exports = {
     // All imported modules in your tests should be mocked automatically
     // automock: false,
 
-    // Stop running tests after the first failure
-    // bail: false,
+    // Stop running tests after `n` failures
+    // bail: 0,
 
     // Respect "browser" field in package.json when resolving modules
     // browser: false,
 
     // The directory where Jest should store its cached dependency information
-    // cacheDirectory: "C:\\Users\\bkc\\AppData\\Local\\Temp\\jest",
+    // cacheDirectory: "/tmp/jest_rs",
 
     // Automatically clear mock calls and instances between every test
-    // clearMocks: false,
+    // clearMocks: true,
 
     // Indicates whether the coverage information should be collected while executing the test
     // collectCoverage: false,
@@ -24,12 +24,10 @@ module.exports = {
     // collectCoverageFrom: null,
 
     // The directory where Jest should output its coverage files
-    coverageDirectory: 'coverage',
+    // coverageDirectory: null,
 
     // An array of regexp pattern strings used to skip coverage collection
-    // coveragePathIgnorePatterns: [
-    //   "\\\\node_modules\\\\"
-    // ],
+    // coveragePathIgnorePatterns: ['/node_modules/', '<rootDir>/lib'],
 
     // A list of reporter names that Jest uses when writing coverage reports
     // coverageReporters: [
@@ -42,10 +40,13 @@ module.exports = {
     // An object that configures minimum threshold enforcement for coverage results
     // coverageThreshold: null,
 
+    // A path to a custom dependency extractor
+    // dependencyExtractor: null,
+
     // Make calling deprecated APIs throw helpful error messages
     // errorOnDeprecated: false,
 
-    // Force coverage collection from ignored files usin a array of glob patterns
+    // Force coverage collection from ignored files using an array of glob patterns
     // forceCoverageMatch: [],
 
     // A path to a module which exports an async function that is triggered once before all test suites
@@ -55,24 +56,28 @@ module.exports = {
     // globalTeardown: null,
 
     // A set of global variables that need to be available in all test environments
-    globals: {
-        'ts-jest': {
-            tsConfig: 'tsconfig.json',
-        },
-    },
+    // globals: {},
+
+    // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
+    // maxWorkers: "50%",
 
     // An array of directory names to be searched recursively up from the requiring module's location
-    // moduleDirectories: [
-    //   "node_modules"
-    // ],
+    moduleDirectories: ['node_modules'],
 
     // An array of file extensions your modules use
-    moduleFileExtensions: ['ts', 'tsx', 'js'],
+    // moduleFileExtensions: [
+    //   "js",
+    //   "json",
+    //   "jsx",
+    //   "ts",
+    //   "tsx",
+    //   "node"
+    // ],
 
     // A map from regular expressions to module names that allow to stub out resources with a single module
     moduleNameMapper: {
-        '^@zeroconf/libsql$': ['<rootDir>/src/index'],
-        '^@zeroconf/libsql/(.*)$': ['<rootDir>/src/$1'],
+        '^@zeroconf/libsql$': '<rootDir>/src/index',
+        '^@zeroconf/libsql/(.+)$': '<rootDir>/src/$1',
     },
 
     // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -82,10 +87,10 @@ module.exports = {
     // notify: false,
 
     // An enum that specifies notification mode. Requires { notify: true }
-    // notifyMode: "always",
+    // notifyMode: "failure-change",
 
     // A preset that is used as a base for Jest's configuration
-    // preset: null,
+    preset: 'ts-jest',
 
     // Run tests from one or more projects
     // projects: null,
@@ -106,7 +111,7 @@ module.exports = {
     // restoreMocks: false,
 
     // The root directory that Jest should scan for tests and modules within
-    // rootDir: 'null,
+    // rootDir: null,
 
     // A list of paths to directories that Jest should use to search for files in
     // roots: [
@@ -119,8 +124,8 @@ module.exports = {
     // The paths to modules that run some code to configure or set up the testing environment before each test
     // setupFiles: [],
 
-    // The path to a module that runs some code to configure or set up the testing framework before each test
-    // setupTestFrameworkScriptFile: null,
+    // A list of paths to modules that run some code to configure or set up the testing framework before each test
+    // setupFilesAfterEnv: [],
 
     // A list of paths to snapshot serializer modules Jest should use for snapshot testing
     // snapshotSerializers: [],
@@ -135,13 +140,16 @@ module.exports = {
     // testLocationInResults: false,
 
     // The glob patterns Jest uses to detect test files
-    testMatch: ['**/__tests__/*.+(ts|tsx|js)'],
+    // testMatch: [
+    //   "**/__tests__/**/*.[jt]s?(x)",
+    //   "**/?(*.)+(spec|test).[tj]s?(x)"
+    // ],
 
     // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
-    testPathIgnorePatterns: ['/node_modules/', '<rootDir>/lib/'],
+    testPathIgnorePatterns: ['/node_modules/', '<rootDir>/lib'],
 
-    // The regexp pattern Jest uses to detect test files
-    // testRegex: "",
+    // The regexp pattern or array of patterns that Jest uses to detect test files
+    // testRegex: [],
 
     // This option allows the use of a custom results processor
     // testResultsProcessor: null,
@@ -156,14 +164,10 @@ module.exports = {
     // timers: "real",
 
     // A map from regular expressions to paths to transformers
-    transform: {
-        '^.+\\.(ts|tsx)$': 'ts-jest',
-    },
+    // transform: null,
 
     // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-    // transformIgnorePatterns: [
-    //   "\\\\node_modules\\\\"
-    // ],
+    // transformIgnorePatterns: ['/node_modules/', '<rootDir>/lib'],
 
     // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
     // unmockedModulePathPatterns: undefined,
@@ -175,5 +179,5 @@ module.exports = {
     // watchPathIgnorePatterns: [],
 
     // Whether to use watchman for file crawling
-    watchman: true,
+    // watchman: true,
 };
