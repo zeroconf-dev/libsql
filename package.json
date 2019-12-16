@@ -19,7 +19,18 @@
     "injection",
     "util"
   ],
-  "author": "Brian Kejlbjerg <briankchristensen@gmail.com>",
+  "author": {
+    "name": "Kaare Hoff Skovgaard",
+    "email": "kastermester@gmail.com",
+    "url": "https://github.com/kastermester"
+  },
+  "contributors": [
+    {
+      "name": "Brian Kejlberg",
+      "email": "briankchristensen@gmail.com",
+      "url": "https://github.com/thetrompf"
+    }
+  ],
   "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/zeroconf-dev/libsql/issues"
@@ -47,5 +58,6 @@
   },
   "dependencies": {
     "tslib": "^1.10.0"
-  }
+  },
+  "private": true
 }
