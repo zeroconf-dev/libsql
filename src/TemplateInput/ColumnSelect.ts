@@ -8,11 +8,7 @@ export class ColumnSelect<_T> {
         private readonly tableAlias: string | null,
         private readonly map: ColumnMap,
         private readonly prefix?: string,
-    ) {
-        this.tableAlias = tableAlias;
-        this.map = map;
-        this.prefix = prefix;
-    }
+    ) {}
 
     public getSql(escape: Escaper) {
         return getSqlSelect(escape, this.tableAlias, this.map, this.prefix);

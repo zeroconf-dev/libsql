@@ -17,7 +17,9 @@ export class ForeignColumnUpdate {
 
     public getSql(escape: Escaper, addParam: (paramName: string, value: any) => string): string {
         return Object.keys(this.map)
-            .filter(column => !isReadOnly(this.map[column]!) && getForeignTableName(this.map[column]!) === this.tableName)
+            .filter(
+                column => !isReadOnly(this.map[column]!) && getForeignTableName(this.map[column]!) === this.tableName,
+            )
             .map(column => {
                 const columnMap = this.map[column]!;
                 const columnName = escape.identifier(getColumnName(columnMap));

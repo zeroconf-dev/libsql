@@ -115,7 +115,7 @@ export class ArrayAdapter<T> extends AdapterBase<Maybe<T>[]> {
                     }
                     const text = value.substring(i, nextDelimiter);
 
-                    if (/[\s\{\}"\\]/.test(text) || text.toLowerCase() === 'null' || text.length === 0) {
+                    if (/[\s{}"\\]/.test(text) || text.toLowerCase() === 'null' || text.length === 0) {
                         throw new Error('Invalid element input (it needs to be quoted): ' + text);
                     }
 

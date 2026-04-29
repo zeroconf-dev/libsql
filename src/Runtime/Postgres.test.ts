@@ -5,11 +5,16 @@ declare global {
     namespace NodeJS {
         interface ProcessEnv {
             readonly DATABASE_RUNNING?: 'true';
+            /**
+             * docker-compose binds/exposes the postgres database port to localhost
+             * when running the tests within the docker-compose setup, use the container link name as host (postgres).
+             */
+            readonly PGHOST?: 'localhost' | 'postgres';
         }
     }
 }
 
-describe('PostgresClient', () => {
+describe(/*.runIf(process.env.DATABASE_RUNNING === 'true')*/ 'PostgresClient', () => {
     let pool: PostgresPool;
     afterAll(() => {
         return pool == null ? Promise.resolve() : pool.close();
@@ -17,10 +22,10 @@ describe('PostgresClient', () => {
 
     beforeAll(() => {
         pool = new PostgresPool(
-            'test',
+            'vitest',
             {
                 database: 'test',
-                host: 'postgres',
+                host: process.env.PGHOST ?? 'localhost',
                 password: 'test',
                 user: 'test',
             },
@@ -28,17 +33,17 @@ describe('PostgresClient', () => {
         );
     });
 
-    describe.runIf(process.env.DATABASE_RUNNING === 'true')('connect', () => {
+    describe('connect', () => {
         test('Connection is established successfully', () => {
             return expect(pool.connect()).resolves.toBeTruthy();
         });
 
         test('Connection against non existing database throws', () => {
             const pool2 = new PostgresPool(
-                'test',
+                'vitest',
                 {
                     database: 'test-non-existing',
-                    host: 'postgres',
+                    host: process.env.PGHOST ?? 'localhost',
                     password: 'test',
                     user: 'test',
                 },
@@ -52,12 +57,13 @@ describe('PostgresClient', () => {
 
         test('Connection against non existing host throws', () => {
             const pool2 = new PostgresPool(
-                'test',
+                'vitest',
                 {
                     database: 'test',
                     host: 'non-existing-host',
                     password: 'test',
                     user: 'test',
+                    connectionTimeoutMillis: 50,
                 },
                 10,
             );
@@ -67,10 +73,10 @@ describe('PostgresClient', () => {
 
         test('Connection with invalid credentials throws', () => {
             const pool2 = new PostgresPool(
-                'test',
+                'vitest',
                 {
                     database: 'test',
-                    host: 'postgres',
+                    host: process.env.PGHOST ?? 'localhost',
                     password: 'test2',
                     user: 'test',
                 },
@@ -83,7 +89,7 @@ describe('PostgresClient', () => {
         });
     });
 
-    describe.runIf(process.env.DATABASE_RUNNING === 'true')('query', () => {
+    describe('query', () => {
         test('Simple query result', async () => {
             const client = await pool.connect();
             return expect(client.query('SELECT 1 as "value"')).resolves.toMatchObject({

@@ -9,9 +9,7 @@ export class ForeignColumnSelect<_T> {
         private readonly tableAlias: string | null,
         private readonly map: ColumnMap,
         private readonly prefix?: string,
-    ) {
-        this.prefix = prefix;
-    }
+    ) {}
 
     public getSql(escape: Escaper) {
         return getSqlSelectForForeignTable(escape, this.tableName, this.tableAlias as string, this.map, this.prefix);

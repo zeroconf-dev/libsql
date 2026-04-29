@@ -39,5 +39,6 @@
                 "./src/*"
             ]
         }
-    }
+    },
+    "exclude": ["./.direnv", "./.vscode", "./dist"]
 }

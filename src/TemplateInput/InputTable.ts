@@ -1,12 +1,6 @@
 import type { Escaper } from '@zeroconf/libsql/Runtime/Escaper.js';
-import {
-    InputTableWithValues,
-} from '@zeroconf/libsql/TemplateInput/InputTableWithValues.js';
-import type {
-    InsertionGroup,
-    TableType,
-    TableTypeSpec,
-} from '@zeroconf/libsql/TemplateInput/InputTableWithValues.js';
+import { InputTableWithValues } from '@zeroconf/libsql/TemplateInput/InputTableWithValues.js';
+import type { InsertionGroup, TableType, TableTypeSpec } from '@zeroconf/libsql/TemplateInput/InputTableWithValues.js';
 import { toSqlValue } from '@zeroconf/libsql/Value/ToSqlValue.js';
 
 export type KeyMappings<TSpec extends TableTypeSpec> = Partial<{ [key in keyof TableType<TSpec>]: string }>;

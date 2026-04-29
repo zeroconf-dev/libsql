@@ -64,7 +64,7 @@ export class InputTableWithValues<TSpec extends TableTypeSpec, TDB = any> {
             const insertQueryText = `INSERT INTO ${quotedTableName} (${commaSeparatedColumns}) VALUES ${inputParams};`;
             const insertQueryName = `tmp_insert_${insertionGroup[0]}_${quotedTableName}`;
 
-            const values = [...insertionGroup[1].map(idx => this.inputTable.mapInputValue(this.values[idx]!, idx))];
+            const values = insertionGroup[1].map(idx => this.inputTable.mapInputValue(this.values[idx]!, idx));
 
             insertPromises.push(client.query(insertQueryText, values, insertQueryName));
         }

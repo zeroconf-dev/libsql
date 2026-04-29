@@ -1,8 +1,0 @@
-{
-    "extends": "tslint-secoya",
-    "rules": {
-        "indent": [true, "spaces", 4],
-        "no-relative-imports": false,
-        "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"]
-    }
-}

@@ -25,6 +25,8 @@ services:
     - postgres
     links:
     - postgres
+    environment:
+      - PGHOST=postgres
     volumes:
       - ../tsconfig.json:/service/tsconfig.json:cached
       - ../src:/service/src:cached

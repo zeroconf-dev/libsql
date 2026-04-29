@@ -5,7 +5,7 @@ import { Query as sql } from '@zeroconf/libsql/Query.js';
 import { PostgresEscaper, PostgresPlatform, PostgresPool } from '@zeroconf/libsql/Runtime/Postgres.js';
 import { afterAll, beforeAll, beforeEach, describe, expect, test } from 'vitest';
 
-describe.runIf(process.env.DATABASE_RUNNING === 'true')('Postgres.Query', () => {
+describe('Postgres.Query', () => {
     let pool: PostgresPool;
     let platform: PostgresPlatform;
     afterAll(() => {
@@ -17,7 +17,7 @@ describe.runIf(process.env.DATABASE_RUNNING === 'true')('Postgres.Query', () => 
             'test',
             {
                 database: 'test',
-                host: 'postgres',
+                host: process.env.PGHOST ?? 'localhost',
                 password: 'test',
                 user: 'test',
             },

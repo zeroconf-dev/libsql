@@ -6,5 +6,5 @@ export function adapterValue<TAdapter extends DataAdapter, TValue extends DataAd
     adapterName: TAdapter,
     value: string,
 ): TValue {
-    return ((getAdapter(adapterName) as unknown) as Adapter<TValue>).fromSqlValue(value);
+    return (getAdapter(adapterName) as unknown as Adapter<TValue>).fromSqlValue(value);
 }

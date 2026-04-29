@@ -9,6 +9,8 @@ const BEGIN_TRANSACTION_QUERY = 'BEGIN';
 const COMMIT_TRANSACTION_QUERY = 'COMMIT';
 const ROLLBACK_TRANSACTION_QUERY = 'ROLLBACK';
 
+pg.types.setTypeParser(/** TypeId.DATE */ 1082, val => new Date(`${val}T00:00:00.000Z`));
+
 export class PostgresClient implements Client<pg.PoolClient> {
     public get transactionNestingLevel(): number {
         return this.numTransactionNestingLevel;
@@ -17,7 +19,10 @@ export class PostgresClient implements Client<pg.PoolClient> {
     private numTransactionNestingLevel = 0;
     private uniqueIdentifierNumber = 0;
 
-    public constructor(client: pg.PoolClient, private done: () => void) {
+    public constructor(
+        client: pg.PoolClient,
+        private done: () => void,
+    ) {
         this.client = client;
     }
 

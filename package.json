@@ -6,9 +6,10 @@
   "scripts": {
     "build": "tsgo -p tsconfig.build.json",
     "fmt": "prettier --write -l 'src/**/*.ts'",
-    "lint": "tslint -p .",
-    "test": "vitest",
-    "postinstall": "mkdir -p ./node_modules/@zeroconf && ln -fns ../../src ./node_modules/@zeroconf/libsql"
+    "lint": "oxlint",
+    "pack": "./scripts/build.sh",
+    "postinstall": "mkdir -p ./node_modules/@zeroconf && ln -fns ../../src ./node_modules/@zeroconf/libsql",
+    "test": "vitest"
   },
   "type": "module",
   "repository": {
@@ -43,6 +44,7 @@
     "@types/pg": "^8.20.0",
     "@types/pg-escape": "^0.2.3",
     "@typescript/native-preview": "^7.0.0-dev.20260429.1",
+    "oxlint": "^1.62.0",
     "pg": "^8.20.0",
     "pg-escape": "^0.2.0",
     "prettier": "^3.8.3",

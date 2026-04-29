@@ -8,5 +8,5 @@ export function adapterParam<TAdapter extends DataAdapter, TValue extends DataAd
     name: string,
     value: TValue | null,
 ): AdapterParamInput<TValue> {
-    return new AdapterParamInput((getAdapter(adapter) as unknown) as Adapter<TValue>, name, value);
+    return new AdapterParamInput(getAdapter(adapter) as unknown as Adapter<TValue>, name, value);
 }

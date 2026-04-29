@@ -135,7 +135,10 @@ export class Template<T> {
             tables: Array.from(tables.values()),
         };
     }
-    public constructor(private readonly queryParts: TemplateStringsArray, private readonly input: TemplateInput<T>[]) {}
+    public constructor(
+        private readonly queryParts: TemplateStringsArray,
+        private readonly input: TemplateInput<T>[],
+    ) {}
 
     private async executeImpl<TClient extends Client<TDB>, TDB = any>(
         platform: Platform<TClient, TDB>,

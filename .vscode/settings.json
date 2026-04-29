@@ -1,4 +1,12 @@
 {
-    "jest.runAllTestsFirst": false,
-    "jest.pathToJest": "docker-compose run test --"
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[json]": {
+        "editor.quickSuggestions": {
+            "strings": true
+        },
+        "editor.suggest.insertMode": "replace",
+        "editor.formatOnSave": true
+    },
+    "js/ts.format.enabled": true
 }
