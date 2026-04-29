@@ -1,6 +1,6 @@
-import { DataAdapter } from '@zeroconf/libsql/Adapter/DataAdapters';
-import { RawInterpolationString } from '@zeroconf/libsql/TemplateInput/RawInterpolationString';
-import { getAdapter } from '@zeroconf/libsql/Util/GetAdapter';
+import type { DataAdapter } from '@zeroconf/libsql/Adapter/DataAdapters.js';
+import { RawInterpolationString } from '@zeroconf/libsql/TemplateInput/RawInterpolationString.js';
+import { getAdapter } from '@zeroconf/libsql/Util/GetAdapter.js';
 
 export function adapterSelect<TAdapter extends DataAdapter>(
     adapterName: TAdapter,

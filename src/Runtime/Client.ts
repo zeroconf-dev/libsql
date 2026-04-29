@@ -1,14 +1,18 @@
 interface QueryResultBase {
     command: string;
-    rowCount: number;
+    rowCount: number | null;
 }
 
-export interface QueryResult extends QueryResultBase {
-    rows: any[];
+export interface QueryResultRow {
+    [column: string]: any;
 }
 
-export interface QueryArrayResult extends QueryResultBase {
-    rows: any[][];
+export interface QueryResult<R extends QueryResultRow = any> extends QueryResultBase {
+    rows: R[];
+}
+
+export interface QueryArrayResult<R extends any[] = any[]> extends QueryResultBase {
+    rows: R[];
 }
 
 export interface Client<T> {

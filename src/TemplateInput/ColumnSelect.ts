@@ -1,7 +1,7 @@
-import { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap';
-import { Escaper } from '@zeroconf/libsql/Runtime/Escaper';
-import { getSqlSelect } from '@zeroconf/libsql/Util/GetSqlSelect';
-import { mapColumnOutputValue } from '@zeroconf/libsql/Util/MapColumnOutputValue';
+import type { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap.js';
+import type { Escaper } from '@zeroconf/libsql/Runtime/Escaper.js';
+import { getSqlSelect } from '@zeroconf/libsql/Util/GetSqlSelect.js';
+import { mapColumnOutputValue } from '@zeroconf/libsql/Util/MapColumnOutputValue.js';
 
 export class ColumnSelect<_T> {
     public constructor(
@@ -24,7 +24,7 @@ export class ColumnSelect<_T> {
             if (ignoreColumns.has(columnName) || !Object.prototype.hasOwnProperty.call(output, columnName)) {
                 return;
             }
-            const column = this.map[e];
+            const column = this.map[e]!;
 
             output[columnName] = mapColumnOutputValue(column, output[columnName]);
             ignoreColumns.add(columnName);

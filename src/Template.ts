@@ -1,23 +1,23 @@
-import { AffectedRowsMismatchError } from '@zeroconf/libsql/Error/AffectedRowsMismatchError';
-import { NonUniqueResultError } from '@zeroconf/libsql/Error/NonUniqueResultError';
-import { NoResultsFoundError } from '@zeroconf/libsql/Error/NoResultsFoundError';
-import { Client } from '@zeroconf/libsql/Runtime/Client';
-import { Platform } from '@zeroconf/libsql/Runtime/Platform';
-import { TemplateInput } from '@zeroconf/libsql/TemplateInput';
-import { AdapterParamInput } from '@zeroconf/libsql/TemplateInput/AdapterParamInput';
-import { ColumnChanged } from '@zeroconf/libsql/TemplateInput/ColumnChanged';
-import { ColumnInputNames } from '@zeroconf/libsql/TemplateInput/ColumnInputNames';
-import { ColumnSelect } from '@zeroconf/libsql/TemplateInput/ColumnSelect';
-import { ColumnUpdate } from '@zeroconf/libsql/TemplateInput/ColumnUpdate';
-import { ForeignColumnChanged } from '@zeroconf/libsql/TemplateInput/ForeignColumnChanged';
-import { ForeignColumnInputNames } from '@zeroconf/libsql/TemplateInput/ForeignColumnInputNames';
-import { ForeignColumnSelect } from '@zeroconf/libsql/TemplateInput/ForeignColumnSelect';
-import { ForeignColumnUpdate } from '@zeroconf/libsql/TemplateInput/ForeignColumnUpdate';
-import { InputTableWithValues } from '@zeroconf/libsql/TemplateInput/InputTableWithValues';
-import { ParamInput } from '@zeroconf/libsql/TemplateInput/ParamInput';
-import { RawInterpolationString } from '@zeroconf/libsql/TemplateInput/RawInterpolationString';
-import { SqlPartString } from '@zeroconf/libsql/TemplateInput/SqlPartString';
-import { assertNever } from '@zeroconf/libsql/Util/AssertNever';
+import { AffectedRowsMismatchError } from '@zeroconf/libsql/Error/AffectedRowsMismatchError.js';
+import { NonUniqueResultError } from '@zeroconf/libsql/Error/NonUniqueResultError.js';
+import { NoResultsFoundError } from '@zeroconf/libsql/Error/NoResultsFoundError.js';
+import type { Client } from '@zeroconf/libsql/Runtime/Client.js';
+import type { Platform } from '@zeroconf/libsql/Runtime/Platform.js';
+import type { TemplateInput } from '@zeroconf/libsql/TemplateInput.js';
+import { AdapterParamInput } from '@zeroconf/libsql/TemplateInput/AdapterParamInput.js';
+import { ColumnChanged } from '@zeroconf/libsql/TemplateInput/ColumnChanged.js';
+import { ColumnInputNames } from '@zeroconf/libsql/TemplateInput/ColumnInputNames.js';
+import { ColumnSelect } from '@zeroconf/libsql/TemplateInput/ColumnSelect.js';
+import { ColumnUpdate } from '@zeroconf/libsql/TemplateInput/ColumnUpdate.js';
+import { ForeignColumnChanged } from '@zeroconf/libsql/TemplateInput/ForeignColumnChanged.js';
+import { ForeignColumnInputNames } from '@zeroconf/libsql/TemplateInput/ForeignColumnInputNames.js';
+import { ForeignColumnSelect } from '@zeroconf/libsql/TemplateInput/ForeignColumnSelect.js';
+import { ForeignColumnUpdate } from '@zeroconf/libsql/TemplateInput/ForeignColumnUpdate.js';
+import { InputTableWithValues } from '@zeroconf/libsql/TemplateInput/InputTableWithValues.js';
+import { ParamInput } from '@zeroconf/libsql/TemplateInput/ParamInput.js';
+import { RawInterpolationString } from '@zeroconf/libsql/TemplateInput/RawInterpolationString.js';
+import { SqlPartString } from '@zeroconf/libsql/TemplateInput/SqlPartString.js';
+import { assertNever } from '@zeroconf/libsql/Util/AssertNever.js';
 
 export interface ExecuteResult<T> {
     params: any[];
@@ -41,11 +41,11 @@ export class Template<T> {
         tables: Set<InputTableWithValues<any>>,
     ): void {
         for (let i = 0; i < queryParts.length; i++) {
-            const str = queryParts[i];
+            const str = queryParts[i]!;
             sqlRes.push(str);
 
             if (i < values.length) {
-                const input = values[i];
+                const input = values[i]!;
                 if (input instanceof ParamInput) {
                     sqlRes.push(addParam(input.name, input.value));
                 } else if (input instanceof AdapterParamInput) {
@@ -162,7 +162,7 @@ export class Template<T> {
         return {
             params: params,
             result: {
-                affectedRows: affected,
+                affectedRows: affected ?? 0,
                 rows: rows,
             },
             sql: sql,
@@ -193,28 +193,30 @@ export class Template<T> {
         platform: Platform<TClient, TDB>,
     ): Promise<T | null> {
         const res = await this.executeImpl(platform);
-        if (res.result.rows.length === 0) {
-            return null;
-        }
-
         if (res.result.rows.length > 1) {
             throw new NonUniqueResultError(res.sql, res.params, res.result.rows.length);
         }
 
-        return res.result.rows[0];
+        const row = res.result.rows[0];
+        if (row == null) {
+            return null;
+        }
+
+        return row;
     }
 
     public async singleResult<TClient extends Client<TDB>, TDB = any>(platform: Platform<TClient, TDB>): Promise<T> {
         const res = await this.executeImpl(platform);
 
-        if (res.result.rows.length === 0) {
-            throw new NoResultsFoundError(res.sql, res.params);
-        }
-
         if (res.result.rows.length > 1) {
             throw new NonUniqueResultError(res.sql, res.params, res.result.rows.length);
         }
 
-        return res.result.rows[0];
+        const row = res.result.rows[0];
+        if (row == null) {
+            throw new NoResultsFoundError(res.sql, res.params);
+        }
+
+        return row;
     }
 }

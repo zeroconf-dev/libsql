@@ -1,4 +1,4 @@
-import { SqlQueryError } from '@zeroconf/libsql/Error/SqlQueryError';
+import { SqlQueryError } from '@zeroconf/libsql/Error/SqlQueryError.js';
 
 export abstract class UnexpectedNumberOfResultsError extends SqlQueryError {
     public constructor(message: string, sqlQuery: string, sqlParameters: readonly any[] | null) {

@@ -1,8 +1,8 @@
-import { Adapter } from '@zeroconf/libsql/Adapter';
-import { AdapterValue } from '@zeroconf/libsql/Adapter/DataAdapters';
-import { Client } from '@zeroconf/libsql/Runtime/Client';
-import { Escaper } from '@zeroconf/libsql/Runtime/Escaper';
-import { InputTable } from '@zeroconf/libsql/TemplateInput/InputTable';
+import type { Adapter } from '@zeroconf/libsql/Adapter.js';
+import type { AdapterValue } from '@zeroconf/libsql/Adapter/DataAdapters.js';
+import type { Client } from '@zeroconf/libsql/Runtime/Client.js';
+import type { Escaper } from '@zeroconf/libsql/Runtime/Escaper.js';
+import type { InputTable } from '@zeroconf/libsql/TemplateInput/InputTable.js';
 
 export type InsertionGroup = 1 | 2 | 4 | 8 | 16 | 32 | 64 | 128;
 
@@ -64,7 +64,7 @@ export class InputTableWithValues<TSpec extends TableTypeSpec, TDB = any> {
             const insertQueryText = `INSERT INTO ${quotedTableName} (${commaSeparatedColumns}) VALUES ${inputParams};`;
             const insertQueryName = `tmp_insert_${insertionGroup[0]}_${quotedTableName}`;
 
-            const values = [...insertionGroup[1].map(idx => this.inputTable.mapInputValue(this.values[idx], idx))];
+            const values = [...insertionGroup[1].map(idx => this.inputTable.mapInputValue(this.values[idx]!, idx))];
 
             insertPromises.push(client.query(insertQueryText, values, insertQueryName));
         }

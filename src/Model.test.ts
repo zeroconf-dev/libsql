@@ -1,7 +1,8 @@
-import { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap';
-import { baseModelGenerator } from '@zeroconf/libsql/Model';
-import { Escaper } from '@zeroconf/libsql/Runtime/Escaper';
-import { ColumnSelect } from '@zeroconf/libsql/TemplateInput/ColumnSelect';
+import type { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap.js';
+import { baseModelGenerator } from '@zeroconf/libsql/Model.js';
+import type { Escaper } from '@zeroconf/libsql/Runtime/Escaper.js';
+import { ColumnSelect } from '@zeroconf/libsql/TemplateInput/ColumnSelect.js';
+import { describe, expect, test } from 'vitest';
 
 const escape: Escaper = {
     identifier: (ident: string) => `"${ident}"`,

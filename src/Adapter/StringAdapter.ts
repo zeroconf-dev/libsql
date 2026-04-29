@@ -1,4 +1,4 @@
-import { AdapterBase } from '@zeroconf/libsql/Adapter/AdapterBase';
+import { AdapterBase } from '@zeroconf/libsql/Adapter/AdapterBase.js';
 
 type StringTypes = 'text' | 'citext' | 'varchar';
 

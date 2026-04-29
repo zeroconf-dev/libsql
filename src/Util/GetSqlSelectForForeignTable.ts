@@ -1,6 +1,6 @@
-import { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap';
-import { Escaper } from '@zeroconf/libsql/Runtime/Escaper';
-import { mapForeignSqlSelect } from '@zeroconf/libsql/Util/MapForeignSqlSelect';
+import type { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap.js';
+import type { Escaper } from '@zeroconf/libsql/Runtime/Escaper.js';
+import { mapForeignSqlSelect } from '@zeroconf/libsql/Util/MapForeignSqlSelect.js';
 
 const cache: Map<ColumnMap, Map<string, Map<string, Map<string, string>>>> = new Map();
 

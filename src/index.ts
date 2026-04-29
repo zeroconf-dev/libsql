@@ -1,1 +1,1 @@
-export { Query as sql } from '@zeroconf/libsql/Query';
+export { Query as sql } from '@zeroconf/libsql/Query.js';

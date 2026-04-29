@@ -4,5 +4,5 @@
         "declaration": true,
         "declarationMap": true
     },
-    "exclude": ["**/__tests__/*", "**/__mocks__/*", "build", "node_modules"]
+    "exclude": ["**/*.test.*", "**/__mocks__/*", "dist", "node_modules"]
 }

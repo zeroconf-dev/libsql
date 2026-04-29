@@ -1,9 +1,9 @@
-import { Adapter } from '@zeroconf/libsql/Adapter';
-import { ArrayAdapter } from '@zeroconf/libsql/Adapter/ArrayAdapter';
-import { BooleanAdapter } from '@zeroconf/libsql/Adapter/BooleanAdapter';
-import { DateAdapter } from '@zeroconf/libsql/Adapter/DateAdapter';
-import { NumberAdapter } from '@zeroconf/libsql/Adapter/NumberAdapter';
-import { StringAdapter } from '@zeroconf/libsql/Adapter/StringAdapter';
+import type { Adapter } from '@zeroconf/libsql/Adapter.js';
+import { ArrayAdapter } from '@zeroconf/libsql/Adapter/ArrayAdapter.js';
+import { BooleanAdapter } from '@zeroconf/libsql/Adapter/BooleanAdapter.js';
+import { DateAdapter } from '@zeroconf/libsql/Adapter/DateAdapter.js';
+import { NumberAdapter } from '@zeroconf/libsql/Adapter/NumberAdapter.js';
+import { StringAdapter } from '@zeroconf/libsql/Adapter/StringAdapter.js';
 
 const booleanAdapter = new BooleanAdapter();
 const dateAdapter = new DateAdapter();

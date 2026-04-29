@@ -1,7 +1,7 @@
-import { Adapter } from '@zeroconf/libsql/Adapter';
-import { AdapterBase } from '@zeroconf/libsql/Adapter/AdapterBase';
-import { assertNever } from '@zeroconf/libsql/Util/AssertNever';
-import { toSqlValue } from '@zeroconf/libsql/Util/ToSqlValue';
+import type { Adapter } from '@zeroconf/libsql/Adapter.js';
+import { AdapterBase } from '@zeroconf/libsql/Adapter/AdapterBase.js';
+import { assertNever } from '@zeroconf/libsql/Util/AssertNever.js';
+import { toSqlValue } from '@zeroconf/libsql/Value/ToSqlValue.js';
 
 enum ParserState {
     BeforeOpeningBrace,
@@ -127,7 +127,7 @@ export class ArrayAdapter<T> extends AdapterBase<Maybe<T>[]> {
                     };
                 }
                 case ParserState.InValue: {
-                    let charToAdd = value[i];
+                    let charToAdd = value[i]!;
                     if (charToAdd === '"') {
                         const currentValue = currentState.currentValue.join('');
                         result.push(this.elementAdapter.fromSqlValue(currentValue));
@@ -138,7 +138,7 @@ export class ArrayAdapter<T> extends AdapterBase<Maybe<T>[]> {
 
                     if (charToAdd === '\\') {
                         i++;
-                        charToAdd = value[i];
+                        charToAdd = value[i]!;
                         if (charToAdd !== '"' && charToAdd !== '\\') {
                             throw new Error(
                                 `Invalid escape sequence '\\${charToAdd}' at position ${i - 1} in '${value}'. ` +
@@ -203,7 +203,7 @@ export class ArrayAdapter<T> extends AdapterBase<Maybe<T>[]> {
         return `{${elements.join(`${this.delimiterCharacter}`)}}`;
     }
 
-    public wrapInputValue(input: string): string {
+    public override wrapInputValue(input: string): string {
         const x = this.elementAdapter.wrapInputValue('x');
         if (x === 'x') {
             return input;
@@ -213,7 +213,7 @@ export class ArrayAdapter<T> extends AdapterBase<Maybe<T>[]> {
         return `(SELECT array_agg(${agg}::${elementType}) FROM unnest(${input}::text[]) arr(i))`;
     }
 
-    public wrapOutputValue(expr: string): string {
+    public override wrapOutputValue(expr: string): string {
         const x = this.elementAdapter.wrapOutputValue('x');
         if (x === 'x') {
             return expr;

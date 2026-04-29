@@ -1,4 +1,4 @@
-import { SqlPartStringValue } from '@zeroconf/libsql/TemplateInput/SqlPartStringValue';
+import type { SqlPartStringValue } from '@zeroconf/libsql/TemplateInput/SqlPartStringValue.js';
 
 export class SqlPartString {
     public constructor(

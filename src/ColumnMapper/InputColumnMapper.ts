@@ -1,8 +1,8 @@
 export type InputColumnMapperFn = (paramName: string) => string;
 
 export interface InputColumnMapperComplex {
-    mapValue: (value: any) => any;
-    sqlExpr: InputColumnMapperFn;
+    readonly mapValue: (value: any) => any;
+    readonly sqlExpr: InputColumnMapperFn;
 }
 
 export type InputColumnMapper = InputColumnMapperComplex | InputColumnMapperFn;

@@ -1,11 +1,11 @@
-import { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap';
-import { Escaper } from '@zeroconf/libsql/Runtime/Escaper';
-import { getColumnInputExpr } from '@zeroconf/libsql/Util/GetColumnInputExpr';
-import { getColumnName } from '@zeroconf/libsql/Util/GetColumnName';
-import { getForeignTableName } from '@zeroconf/libsql/Util/GetForeignTableName';
-import { isReadOnly } from '@zeroconf/libsql/Util/IsReadOnly';
-import { mapInputValue } from '@zeroconf/libsql/Util/MapInputValue';
-import { prefixParamName } from '@zeroconf/libsql/Util/PrefixParamName';
+import type { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap.js';
+import type { Escaper } from '@zeroconf/libsql/Runtime/Escaper.js';
+import { getColumnInputExpr } from '@zeroconf/libsql/Util/GetColumnInputExpr.js';
+import { getColumnName } from '@zeroconf/libsql/Util/GetColumnName.js';
+import { getForeignTableName } from '@zeroconf/libsql/Util/GetForeignTableName.js';
+import { isReadOnly } from '@zeroconf/libsql/Util/IsReadOnly.js';
+import { mapInputValue } from '@zeroconf/libsql/Util/MapInputValue.js';
+import { prefixParamName } from '@zeroconf/libsql/Util/PrefixParamName.js';
 
 export class ForeignColumnUpdate {
     public constructor(
@@ -17,9 +17,9 @@ export class ForeignColumnUpdate {
 
     public getSql(escape: Escaper, addParam: (paramName: string, value: any) => string): string {
         return Object.keys(this.map)
-            .filter(column => !isReadOnly(this.map[column]) && getForeignTableName(this.map[column]) === this.tableName)
+            .filter(column => !isReadOnly(this.map[column]!) && getForeignTableName(this.map[column]!) === this.tableName)
             .map(column => {
-                const columnMap = this.map[column];
+                const columnMap = this.map[column]!;
                 const columnName = escape.identifier(getColumnName(columnMap));
                 const paramValue = mapInputValue(columnMap, this.value[column]);
                 const paramName = addParam(prefixParamName(this.paramName, column), paramValue);

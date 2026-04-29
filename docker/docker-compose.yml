@@ -1,12 +1,11 @@
-version: "3.3"
-
+---
 services:
   build:
     build:
       context: ..
       dockerfile: docker/build.Dockerfile
     volumes:
-      - ../lib:/service/lib:consistent
+      - ../dist:/service/dist:consistent
       - ../types:/service/types:consistent
   postgres:
     build:
@@ -16,6 +15,8 @@ services:
       - "POSTGRES_DB=test"
       - "POSTGRES_PASSWORD=test"
       - "POSTGRES_USER=test"
+    ports:
+      - "5432:5432"
   test:
     build:
       context: ..
@@ -25,8 +26,5 @@ services:
     links:
     - postgres
     volumes:
-      - ../.git:/service/.git:cached
       - ../tsconfig.json:/service/tsconfig.json:cached
-      - ../jest.config.js:/service/jest.config.js:cached
       - ../src:/service/src:cached
-      - /tmp/jest_runner.json:/tmp/jest_runner.json:cached

@@ -1,4 +1,13 @@
-import { PostgresEscaper, PostgresPool } from '@zeroconf/libsql/Runtime/Postgres';
+import { PostgresEscaper, PostgresPool } from '@zeroconf/libsql/Runtime/Postgres.js';
+import { afterAll, beforeAll, describe, expect, test } from 'vitest';
+
+declare global {
+    namespace NodeJS {
+        interface ProcessEnv {
+            readonly DATABASE_RUNNING?: 'true';
+        }
+    }
+}
 
 describe('PostgresClient', () => {
     let pool: PostgresPool;
@@ -19,7 +28,7 @@ describe('PostgresClient', () => {
         );
     });
 
-    describe('connect', () => {
+    describe.runIf(process.env.DATABASE_RUNNING === 'true')('connect', () => {
         test('Connection is established successfully', () => {
             return expect(pool.connect()).resolves.toBeTruthy();
         });
@@ -37,7 +46,7 @@ describe('PostgresClient', () => {
             );
 
             return expect(pool2.connect()).rejects.toThrowErrorMatchingInlineSnapshot(
-                `"database \\"test-non-existing\\" does not exist"`,
+                `[error: database "test-non-existing" does not exist]`,
             );
         });
 
@@ -69,12 +78,12 @@ describe('PostgresClient', () => {
             );
 
             return expect(pool2.connect()).rejects.toThrowErrorMatchingInlineSnapshot(
-                `"password authentication failed for user \\"test\\""`,
+                `[error: password authentication failed for user "test"]`,
             );
         });
     });
 
-    describe('query', () => {
+    describe.runIf(process.env.DATABASE_RUNNING === 'true')('query', () => {
         test('Simple query result', async () => {
             const client = await pool.connect();
             return expect(client.query('SELECT 1 as "value"')).resolves.toMatchObject({

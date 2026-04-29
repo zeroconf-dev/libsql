@@ -1,14 +1,16 @@
 {
   "name": "@zeroconf/libsql",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Utility library to write SQL without worry about injection or escaping",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsgo -p tsconfig.build.json",
     "fmt": "prettier --write -l 'src/**/*.ts'",
     "lint": "tslint -p .",
-    "test": "jest"
+    "test": "vitest",
+    "postinstall": "mkdir -p ./node_modules/@zeroconf && ln -fns ../../src ./node_modules/@zeroconf/libsql"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zeroconf-dev/libsql.git"
@@ -37,27 +39,20 @@
   },
   "homepage": "https://github.com/zeroconf-dev/libsql#readme",
   "devDependencies": {
-    "@types/jest": "24.0.23",
-    "@types/node": "^10.17.9",
-    "@types/pg": "^7.11.2",
-    "@types/pg-escape": "^0.2.0",
-    "jest": "^24.9.0",
-    "pg": "^7.14.0",
+    "@types/node": "^24.12.2",
+    "@types/pg": "^8.20.0",
+    "@types/pg-escape": "^0.2.3",
+    "@typescript/native-preview": "^7.0.0-dev.20260429.1",
+    "pg": "^8.20.0",
     "pg-escape": "^0.2.0",
-    "prettier": "^1.19.1",
-    "ts-jest": "^24.2.0",
-    "tslint": "^5.20.1",
-    "tslint-secoya": "^2.0.7",
-    "typescript": "^3.7.3"
+    "prettier": "^3.8.3",
+    "vitest": "^4.1.5"
   },
   "peerDependencies": {
     "pg-escape": "^0.2.0"
   },
   "optionalDependencies": {
-    "pg-native": "^3.0.0"
-  },
-  "dependencies": {
-    "tslib": "^1.10.0"
+    "pg-native": "^3.7.0"
   },
   "private": true
 }

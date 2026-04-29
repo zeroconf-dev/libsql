@@ -1,10 +1,11 @@
 import { sql } from '@zeroconf/libsql';
-import { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap';
-import { baseModelGenerator } from '@zeroconf/libsql/Model';
-import { param } from '@zeroconf/libsql/Param/Param';
-import { MockClient } from '@zeroconf/libsql/Runtime/__mocks__/Client';
-import { mockEscaper } from '@zeroconf/libsql/Runtime/__mocks__/Escaper';
-import { MockPlatform } from '@zeroconf/libsql/Runtime/__mocks__/Platform';
+import type { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap.js';
+import { baseModelGenerator } from '@zeroconf/libsql/Model.js';
+import { param } from '@zeroconf/libsql/Param/Param.js';
+import { MockClient } from '@zeroconf/libsql/Runtime/__mocks__/Client.js';
+import { mockEscaper } from '@zeroconf/libsql/Runtime/__mocks__/Escaper.js';
+import { MockPlatform } from '@zeroconf/libsql/Runtime/__mocks__/Platform.js';
+import { beforeEach, describe, expect, test } from 'vitest';
 
 const client = new MockClient();
 const platform = new MockPlatform(client, mockEscaper);

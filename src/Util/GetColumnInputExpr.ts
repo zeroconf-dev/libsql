@@ -1,4 +1,4 @@
-import { ColumnMapper } from '@zeroconf/libsql/ColumnMapper';
+import type { ColumnMapper } from '@zeroconf/libsql/ColumnMapper.js';
 
 export function getColumnInputExpr(column: string | ColumnMapper, paramName: string): string {
     if (typeof column === 'string' || column.input === undefined) {

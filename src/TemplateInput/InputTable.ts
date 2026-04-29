@@ -1,11 +1,13 @@
-import { Escaper } from '@zeroconf/libsql/Runtime/Escaper';
+import type { Escaper } from '@zeroconf/libsql/Runtime/Escaper.js';
 import {
     InputTableWithValues,
+} from '@zeroconf/libsql/TemplateInput/InputTableWithValues.js';
+import type {
     InsertionGroup,
     TableType,
     TableTypeSpec,
-} from '@zeroconf/libsql/TemplateInput/InputTableWithValues';
-import { toSqlValue } from '@zeroconf/libsql/Util/ToSqlValue';
+} from '@zeroconf/libsql/TemplateInput/InputTableWithValues.js';
+import { toSqlValue } from '@zeroconf/libsql/Value/ToSqlValue.js';
 
 export type KeyMappings<TSpec extends TableTypeSpec> = Partial<{ [key in keyof TableType<TSpec>]: string }>;
 
@@ -31,7 +33,7 @@ export class InputTable<TSpec extends TableTypeSpec> {
                 const mappedColumnName = keyMappings[key];
                 const columnName = mappedColumnName != null ? mappedColumnName : key;
 
-                return this.escape.identifier(String(columnName)) + ' ' + spec[key].databaseType;
+                return this.escape.identifier(String(columnName)) + ' ' + spec[key]!.databaseType;
             })
             .concat(keyIndexColumnName == null ? [] : [`${quotedIdColumnName} integer NOT NULL UNIQUE`])
             .join(',\n');
@@ -58,7 +60,7 @@ export class InputTable<TSpec extends TableTypeSpec> {
                                       return e;
                                   },
                               }
-                            : spec[key];
+                            : spec[key]!;
                     const expr = `\$${initialAdd + idx + 1}`;
                     return columnSpec.wrapInputValue(expr);
                 })
@@ -91,7 +93,7 @@ export class InputTable<TSpec extends TableTypeSpec> {
     }
 
     public mapInputValue(value: TableType<TSpec>, idx: number): (string | number | null)[] {
-        return (this.keys.map(key => toSqlValue(value[key], this.spec[key])) as (string | number | null)[]).concat(
+        return (this.keys.map(key => toSqlValue(value[key], this.spec[key]!)) as (string | number | null)[]).concat(
             this.keyIndexColumnName == null ? [] : [idx],
         );
     }

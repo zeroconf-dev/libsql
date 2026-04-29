@@ -1,6 +1,6 @@
-import { Adapter } from '@zeroconf/libsql/Adapter';
-import { DataAdapter, DataAdapterValue } from '@zeroconf/libsql/Adapter/DataAdapters';
-import { getAdapter } from '@zeroconf/libsql/Util/GetAdapter';
+import type { Adapter } from '@zeroconf/libsql/Adapter.js';
+import type { DataAdapter, DataAdapterValue } from '@zeroconf/libsql/Adapter/DataAdapters.js';
+import { getAdapter } from '@zeroconf/libsql/Util/GetAdapter.js';
 
 export function adapterValue<TAdapter extends DataAdapter, TValue extends DataAdapterValue<TAdapter>>(
     adapterName: TAdapter,

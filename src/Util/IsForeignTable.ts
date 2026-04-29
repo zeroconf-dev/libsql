@@ -1,4 +1,4 @@
-import { ColumnMapper } from '@zeroconf/libsql/ColumnMapper';
+import type { ColumnMapper } from '@zeroconf/libsql/ColumnMapper.js';
 
 export function isForeignTable(
     columnMap: string | ColumnMapper,

@@ -1,8 +1,8 @@
-import { UnexpectedNumberOfResultsError } from '@zeroconf/libsql/Error/UnexpectedNumberOfResultsError';
+import { UnexpectedNumberOfResultsError } from '@zeroconf/libsql/Error/UnexpectedNumberOfResultsError.js';
 
 export class AffectedRowsMismatchError extends UnexpectedNumberOfResultsError {
     public constructor(
-        public sqlQuery: string,
+        public override sqlQuery: string,
         sqlParameters: readonly any[] | null,
         public readonly expectedAffectedRows: number,
         public readonly actualAffectedRows: number,

@@ -1,10 +1,11 @@
-import { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap';
-import { baseModelGenerator } from '@zeroconf/libsql/Model';
-import { param } from '@zeroconf/libsql/Param/Param';
-import { Query as sql } from '@zeroconf/libsql/Query';
-import { PostgresEscaper, PostgresPlatform, PostgresPool } from '@zeroconf/libsql/Runtime/Postgres';
+import type { ColumnMap } from '@zeroconf/libsql/ColumnMapper/ColumnMap.js';
+import { baseModelGenerator } from '@zeroconf/libsql/Model.js';
+import { param } from '@zeroconf/libsql/Param/Param.js';
+import { Query as sql } from '@zeroconf/libsql/Query.js';
+import { PostgresEscaper, PostgresPlatform, PostgresPool } from '@zeroconf/libsql/Runtime/Postgres.js';
+import { afterAll, beforeAll, beforeEach, describe, expect, test } from 'vitest';
 
-describe('Postgres.Query', () => {
+describe.runIf(process.env.DATABASE_RUNNING === 'true')('Postgres.Query', () => {
     let pool: PostgresPool;
     let platform: PostgresPlatform;
     afterAll(() => {

@@ -1,4 +1,4 @@
-import { Adapter } from '@zeroconf/libsql/Adapter';
+import type { Adapter } from '@zeroconf/libsql/Adapter.js';
 
 export class AdapterParamInput<T> {
     public constructor(

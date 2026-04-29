@@ -1,4 +1,4 @@
-import { Adapter } from '@zeroconf/libsql/Adapter';
+import type { Adapter } from '@zeroconf/libsql/Adapter.js';
 
 export abstract class AdapterBase<T> implements Adapter<T> {
     public readonly databaseType: string;

@@ -1,2 +1,4 @@
+/.direnv
 /.git
+/dist
 /node_modules

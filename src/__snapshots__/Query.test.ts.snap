@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Query Simple model select 1`] = `
+exports[`Query > Simple model select 1`] = `
 "
             SELECT
                 u.email as email, u.id as id, u.name as name

@@ -1,9 +1,9 @@
-import { SqlQueryError } from '@zeroconf/libsql/Error/SqlQueryError';
-import { Client, QueryResult } from '@zeroconf/libsql/Runtime/Client';
-import { Escaper } from '@zeroconf/libsql/Runtime/Escaper';
-import { Platform } from '@zeroconf/libsql/Runtime/Platform';
+import { SqlQueryError } from '@zeroconf/libsql/Error/SqlQueryError.js';
+import type { Client, QueryResult } from '@zeroconf/libsql/Runtime/Client.js';
+import type { Escaper } from '@zeroconf/libsql/Runtime/Escaper.js';
+import { Platform } from '@zeroconf/libsql/Runtime/Platform.js';
 import * as pg from 'pg';
-import * as escape from 'pg-escape';
+import escape from 'pg-escape';
 
 const BEGIN_TRANSACTION_QUERY = 'BEGIN';
 const COMMIT_TRANSACTION_QUERY = 'COMMIT';
